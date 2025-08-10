@@ -18,10 +18,10 @@
 #pragma once
 
 #include <functional>
-#include <mutex>
 #include <boost/asio.hpp>
 #include <f1x/aasdk/Error/Error.hpp>
 #include <f1x/aasdk/IO/IOContextWrapper.hpp>
+#include <mutex>
 
 namespace f1x
 {
@@ -34,11 +34,11 @@ template<typename ResolveArgumentType, typename ErrorArgumentType = error::Error
 class Promise: boost::noncopyable
 {
 public:
-    using ValueType = ResolveArgumentType;
-    using ErrorType = ErrorArgumentType;
-    using ResolveHandler = std::function<void(ResolveArgumentType)>;
-    using RejectHandler = std::function<void(ErrorArgumentType)>;
-    using Pointer = std::shared_ptr<Promise>;
+    typedef ResolveArgumentType ValueType;
+    typedef ErrorArgumentType ErrorType;
+    typedef std::function<void(ResolveArgumentType)> ResolveHandler;
+    typedef std::function<void(ErrorArgumentType)> RejectHandler;
+    typedef std::shared_ptr<Promise> Pointer;
 
     static Pointer defer(boost::asio::io_context& ioContext)
     {
@@ -52,15 +52,20 @@ public:
 
     Promise(boost::asio::io_context& ioContext)
         : ioContextWrapper_(ioContext)
-    {}
+    {
+
+    }
 
     Promise(boost::asio::strand<boost::asio::io_context::executor_type>& strand)
         : ioContextWrapper_(strand)
-    {}
+    {
+
+    }
 
     void then(ResolveHandler resolveHandler, RejectHandler rejectHandler = RejectHandler())
     {
         std::lock_guard<std::mutex> lock(mutex_);
+
         resolveHandler_ = std::move(resolveHandler);
         rejectHandler_ = std::move(rejectHandler);
     }
@@ -68,12 +73,14 @@ public:
     void resolve(ResolveArgumentType argument)
     {
         std::lock_guard<std::mutex> lock(mutex_);
-        if(resolveHandler_ && this->isPending())
+
+        if(resolveHandler_ != nullptr && this->isPending())
         {
             ioContextWrapper_.post([argument = std::move(argument), resolveHandler = std::move(resolveHandler_)]() mutable {
                 resolveHandler(std::move(argument));
             });
         }
+
         ioContextWrapper_.reset();
         rejectHandler_ = RejectHandler();
     }
@@ -81,12 +88,14 @@ public:
     void reject(ErrorArgumentType error)
     {
         std::lock_guard<std::mutex> lock(mutex_);
-        if(rejectHandler_ && this->isPending())
+
+        if(rejectHandler_ != nullptr && this->isPending())
         {
             ioContextWrapper_.post([error = std::move(error), rejectHandler = std::move(rejectHandler_)]() mutable {
                 rejectHandler(std::move(error));
             });
         }
+
         ioContextWrapper_.reset();
         resolveHandler_ = ResolveHandler();
     }
@@ -103,17 +112,16 @@ private:
     std::mutex mutex_;
 };
 
-// Specializations for void ResolveArgumentType and/or void RejectArgumentType below...
 
-// Promise<void, ErrorArgumentType>
+// Partial specialization when ResolveArgumentType = void
 template<typename ErrorArgumentType>
 class Promise<void, ErrorArgumentType>: boost::noncopyable
 {
 public:
-    using ErrorType = ErrorArgumentType;
-    using ResolveHandler = std::function<void()>;
-    using RejectHandler = std::function<void(ErrorArgumentType)>;
-    using Pointer = std::shared_ptr<Promise>;
+    typedef ErrorArgumentType ErrorType;
+    typedef std::function<void()> ResolveHandler;
+    typedef std::function<void(ErrorArgumentType)> RejectHandler;
+    typedef std::shared_ptr<Promise> Pointer;
 
     static Pointer defer(boost::asio::io_context& ioContext)
     {
@@ -127,15 +135,20 @@ public:
 
     Promise(boost::asio::io_context& ioContext)
         : ioContextWrapper_(ioContext)
-    {}
+    {
+
+    }
 
     Promise(boost::asio::strand<boost::asio::io_context::executor_type>& strand)
         : ioContextWrapper_(strand)
-    {}
+    {
+
+    }
 
     void then(ResolveHandler resolveHandler, RejectHandler rejectHandler = RejectHandler())
     {
         std::lock_guard<std::mutex> lock(mutex_);
+
         resolveHandler_ = std::move(resolveHandler);
         rejectHandler_ = std::move(rejectHandler);
     }
@@ -143,12 +156,14 @@ public:
     void resolve()
     {
         std::lock_guard<std::mutex> lock(mutex_);
-        if(resolveHandler_ && this->isPending())
+
+        if(resolveHandler_ != nullptr && this->isPending())
         {
             ioContextWrapper_.post([resolveHandler = std::move(resolveHandler_)]() mutable {
                 resolveHandler();
             });
         }
+
         ioContextWrapper_.reset();
         rejectHandler_ = RejectHandler();
     }
@@ -156,12 +171,14 @@ public:
     void reject(ErrorArgumentType error)
     {
         std::lock_guard<std::mutex> lock(mutex_);
-        if(rejectHandler_ && this->isPending())
+
+        if(rejectHandler_ != nullptr && this->isPending())
         {
             ioContextWrapper_.post([error = std::move(error), rejectHandler = std::move(rejectHandler_)]() mutable {
                 rejectHandler(std::move(error));
             });
         }
+
         ioContextWrapper_.reset();
         resolveHandler_ = ResolveHandler();
     }
@@ -178,87 +195,16 @@ private:
     std::mutex mutex_;
 };
 
-// Promise<void, void>
-template<>
-class Promise<void, void>: boost::noncopyable
-{
-public:
-    using ResolveHandler = std::function<void()>;
-    using RejectHandler = std::function<void()>;
-    using Pointer = std::shared_ptr<Promise>;
 
-    static Pointer defer(boost::asio::io_context& ioContext)
-    {
-        return std::make_shared<Promise>(ioContext);
-    }
-
-    static Pointer defer(boost::asio::strand<boost::asio::io_context::executor_type>& strand)
-    {
-        return std::make_shared<Promise>(strand);
-    }
-
-    Promise(boost::asio::io_context& ioContext)
-        : ioContextWrapper_(ioContext)
-    {}
-
-    Promise(boost::asio::strand<boost::asio::io_context::executor_type>& strand)
-        : ioContextWrapper_(strand)
-    {}
-
-    void then(ResolveHandler resolveHandler, RejectHandler rejectHandler = RejectHandler())
-    {
-        std::lock_guard<std::mutex> lock(mutex_);
-        resolveHandler_ = std::move(resolveHandler);
-        rejectHandler_ = std::move(rejectHandler);
-    }
-
-    void resolve()
-    {
-        std::lock_guard<std::mutex> lock(mutex_);
-        if(resolveHandler_ && this->isPending())
-        {
-            ioContextWrapper_.post([resolveHandler = std::move(resolveHandler_)]() mutable {
-                resolveHandler();
-            });
-        }
-        ioContextWrapper_.reset();
-        rejectHandler_ = RejectHandler();
-    }
-
-    void reject()
-    {
-        std::lock_guard<std::mutex> lock(mutex_);
-        if(rejectHandler_ && this->isPending())
-        {
-            ioContextWrapper_.post([rejectHandler = std::move(rejectHandler_)]() mutable {
-                rejectHandler();
-            });
-        }
-        ioContextWrapper_.reset();
-        resolveHandler_ = ResolveHandler();
-    }
-
-private:
-    bool isPending() const
-    {
-        return ioContextWrapper_.isActive();
-    }
-
-    ResolveHandler resolveHandler_;
-    RejectHandler rejectHandler_;
-    IOContextWrapper ioContextWrapper_;
-    std::mutex mutex_;
-};
-
-// Promise<ResolveArgumentType, void>
+// Partial specialization when ErrorArgumentType = void
 template<typename ResolveArgumentType>
 class Promise<ResolveArgumentType, void>: boost::noncopyable
 {
 public:
-    using ValueType = ResolveArgumentType;
-    using ResolveHandler = std::function<void(ResolveArgumentType)>;
-    using RejectHandler = std::function<void()>;
-    using Pointer = std::shared_ptr<Promise>;
+    typedef ResolveArgumentType ValueType;
+    typedef std::function<void(ResolveArgumentType)> ResolveHandler;
+    typedef std::function<void()> RejectHandler;
+    typedef std::shared_ptr<Promise> Pointer;
 
     static Pointer defer(boost::asio::io_context& ioContext)
     {
@@ -272,15 +218,20 @@ public:
 
     Promise(boost::asio::io_context& ioContext)
         : ioContextWrapper_(ioContext)
-    {}
+    {
+
+    }
 
     Promise(boost::asio::strand<boost::asio::io_context::executor_type>& strand)
         : ioContextWrapper_(strand)
-    {}
+    {
+
+    }
 
     void then(ResolveHandler resolveHandler, RejectHandler rejectHandler = RejectHandler())
     {
         std::lock_guard<std::mutex> lock(mutex_);
+
         resolveHandler_ = std::move(resolveHandler);
         rejectHandler_ = std::move(rejectHandler);
     }
@@ -288,12 +239,14 @@ public:
     void resolve(ResolveArgumentType argument)
     {
         std::lock_guard<std::mutex> lock(mutex_);
-        if(resolveHandler_ && this->isPending())
+
+        if(resolveHandler_ != nullptr && this->isPending())
         {
             ioContextWrapper_.post([argument = std::move(argument), resolveHandler = std::move(resolveHandler_)]() mutable {
                 resolveHandler(std::move(argument));
             });
         }
+
         ioContextWrapper_.reset();
         rejectHandler_ = RejectHandler();
     }
@@ -301,12 +254,96 @@ public:
     void reject()
     {
         std::lock_guard<std::mutex> lock(mutex_);
-        if(rejectHandler_ && this->isPending())
+
+        if(rejectHandler_ != nullptr && this->isPending())
         {
             ioContextWrapper_.post([rejectHandler = std::move(rejectHandler_)]() mutable {
                 rejectHandler();
             });
         }
+
+        ioContextWrapper_.reset();
+        resolveHandler_ = ResolveHandler();
+    }
+
+private:
+    bool isPending() const
+    {
+        return ioContextWrapper_.isActive();
+    }
+
+    ResolveHandler resolveHandler_;
+    RejectHandler rejectHandler_;
+    IOContextWrapper ioContextWrapper_;
+    std::mutex mutex_;
+};
+
+
+// Full specialization for Promise<void, void>
+template<>
+class Promise<void, void>: boost::noncopyable
+{
+public:
+    typedef std::function<void()> ResolveHandler;
+    typedef std::function<void()> RejectHandler;
+    typedef std::shared_ptr<Promise> Pointer;
+
+    static Pointer defer(boost::asio::io_context& ioContext)
+    {
+        return std::make_shared<Promise>(ioContext);
+    }
+
+    static Pointer defer(boost::asio::strand<boost::asio::io_context::executor_type>& strand)
+    {
+        return std::make_shared<Promise>(strand);
+    }
+
+    Promise(boost::asio::io_context& ioContext)
+        : ioContextWrapper_(ioContext)
+    {
+
+    }
+
+    Promise(boost::asio::strand<boost::asio::io_context::executor_type>& strand)
+        : ioContextWrapper_(strand)
+    {
+
+    }
+
+    void then(ResolveHandler resolveHandler, RejectHandler rejectHandler = RejectHandler())
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+
+        resolveHandler_ = std::move(resolveHandler);
+        rejectHandler_ = std::move(rejectHandler);
+    }
+
+    void resolve()
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+
+        if(resolveHandler_ != nullptr && this->isPending())
+        {
+            ioContextWrapper_.post([resolveHandler = std::move(resolveHandler_)]() mutable {
+                resolveHandler();
+            });
+        }
+
+        ioContextWrapper_.reset();
+        rejectHandler_ = RejectHandler();
+    }
+
+    void reject()
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+
+        if(rejectHandler_ != nullptr && this->isPending())
+        {
+            ioContextWrapper_.post([rejectHandler = std::move(rejectHandler_)]() mutable {
+                rejectHandler();
+            });
+        }
+
         ioContextWrapper_.reset();
         resolveHandler_ = ResolveHandler();
     }
