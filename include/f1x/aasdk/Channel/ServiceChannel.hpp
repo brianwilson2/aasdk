@@ -38,7 +38,6 @@ protected:
     virtual ~ServiceChannel() = default;
 
     void send(messenger::Message::Pointer message, messenger::SendPromise::Pointer promise);
-
     boost::asio::strand<boost::asio::io_context::executor_type>& strand_;
     messenger::IMessenger::Pointer messenger_;
     messenger::ChannelId channelId_;

@@ -45,10 +45,10 @@ public:
     virtual ~IAVInputServiceChannel() = default;
 
     virtual void receive(IAVInputServiceChannelEventHandler::Pointer eventHandler) = 0;
-    virtual void sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, SendPromise::Pointer promise) = 0;
-    virtual void sendAVChannelSetupResponse(const proto::messages::AVChannelSetupResponse& response, SendPromise::Pointer promise) = 0;
-    virtual void sendAVMediaWithTimestampIndication(messenger::Timestamp::ValueType, const common::Data& data, SendPromise::Pointer promise) = 0;
-    virtual void sendAVInputOpenResponse(const proto::messages::AVInputOpenResponse& response, SendPromise::Pointer promise) = 0;
+    virtual void sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, messenger::SendPromise::Pointer promise) = 0;
+    virtual void sendAVChannelSetupResponse(const proto::messages::AVChannelSetupResponse& response, messenger::SendPromise::Pointer promise) = 0;
+    virtual void sendAVMediaWithTimestampIndication(messenger::Timestamp::ValueType, const common::Data& data, messenger::SendPromise::Pointer promise) = 0;
+    virtual void sendAVInputOpenResponse(const proto::messages::AVInputOpenResponse& response, messenger::SendPromise::Pointer promise) = 0;
     virtual messenger::ChannelId getId() const = 0;
 };
 

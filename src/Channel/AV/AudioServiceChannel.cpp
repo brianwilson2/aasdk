@@ -38,14 +38,15 @@ AudioServiceChannel::AudioServiceChannel(
     : strand_(strand)
     , messenger_(std::move(messenger))
     , channelId_(channelId)
-    , ServiceChannel()  // <-- Check ServiceChannel constructor (see next step)
+    , ServiceChannel(strand_)
+  // <-- Check ServiceChannel constructor (see next step)
 {
     // constructor body if needed
 }
 
 void AudioServiceChannel::receive(IAudioServiceChannelEventHandler::Pointer eventHandler)
 {
-    auto receivePromise = messenger::ReceivePromise::defer(strand_);
+    auto receivePromise = messenger::ReceivePromise::defer(strand_.get_executor());
     receivePromise->then(std::bind(&AudioServiceChannel::messageHandler, this->shared_from_this(), std::placeholders::_1, eventHandler),
                         std::bind(&IAudioServiceChannelEventHandler::onChannelError, eventHandler, std::placeholders::_1));
 
@@ -56,8 +57,7 @@ messenger::ChannelId AudioServiceChannel::getId() const
 {
     return channelId_;
 }
-
-void AudioServiceChannel::sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, SendPromise::Pointer promise)
+void AudioServiceChannel::sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, messenger::SendPromise::Pointer promise)
 {
     auto message(std::make_shared<messenger::Message>(channelId_, messenger::EncryptionType::ENCRYPTED, messenger::MessageType::CONTROL));
     message->insertPayload(messenger::MessageId(proto::ids::ControlMessage::CHANNEL_OPEN_RESPONSE).getData());
@@ -65,8 +65,7 @@ void AudioServiceChannel::sendChannelOpenResponse(const proto::messages::Channel
 
     this->send(std::move(message), std::move(promise));
 }
-
-void AudioServiceChannel::sendAVChannelSetupResponse(const proto::messages::AVChannelSetupResponse& response, SendPromise::Pointer promise)
+void AudioServiceChannel::sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, messenger::SendPromise::Pointer promise)
 {
     auto message(std::make_shared<messenger::Message>(channelId_, messenger::EncryptionType::ENCRYPTED, messenger::MessageType::SPECIFIC));
     message->insertPayload(messenger::MessageId(proto::ids::AVChannelMessage::SETUP_RESPONSE).getData());
@@ -74,8 +73,7 @@ void AudioServiceChannel::sendAVChannelSetupResponse(const proto::messages::AVCh
 
     this->send(std::move(message), std::move(promise));
 }
-
-void AudioServiceChannel::sendAVMediaAckIndication(const proto::messages::AVMediaAckIndication& indication, SendPromise::Pointer promise)
+void AudioServiceChannel::sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, messenger::SendPromise::Pointer promise)
 {
     auto message(std::make_shared<messenger::Message>(channelId_, messenger::EncryptionType::ENCRYPTED, messenger::MessageType::SPECIFIC));
     message->insertPayload(messenger::MessageId(proto::ids::AVChannelMessage::AV_MEDIA_ACK_INDICATION).getData());

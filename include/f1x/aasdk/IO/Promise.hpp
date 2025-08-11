@@ -17,98 +17,136 @@
 */
 #pragma once
 
+#include <boost/asio.hpp>
 #include <functional>
-#include <type_traits>
-#include <boost/asio/strand.hpp>
-#include <f1x/aasdk/Common/Data.hpp>
+#include <memory>
+#include <utility>
 
-namespace f1x
-{
 namespace aasdk
 {
-namespace io
-{
 
-template <
-    typename ResolveArgumentType = void,
-    typename ErrorArgumentType = void>
-class Promise
+template<typename T = void>
+class Promise : public std::enable_shared_from_this<Promise<T>>
 {
 public:
-    using ResolveHandler = typename std::conditional<
-        std::is_void<ResolveArgumentType>::value,
-        std::function<void()>,
-        std::function<void(ResolveArgumentType)>
-    >::type;
+    using ResolveHandler = std::function<void(T)>;
+    using RejectHandler  = std::function<void(const std::exception_ptr&)>;
 
-    using RejectHandler = typename std::conditional<
-        std::is_void<ErrorArgumentType>::value,
-        std::function<void()>,
-        std::function<void(ErrorArgumentType)>
-    >::type;
-
-    explicit Promise(boost::asio::strand<boost::asio::io_context::executor_type>& strand)
-        : ioContextWrapper_(strand.get_io_context())
-    {}
-
-    void then(ResolveHandler resolveHandler, RejectHandler rejectHandler)
+    explicit Promise(boost::asio::io_context& ioContext)
+        : strand_(boost::asio::make_strand(ioContext)),
+          isActive_(true)
     {
-        resolveHandler_ = std::move(resolveHandler);
-        rejectHandler_ = std::move(rejectHandler);
     }
 
-    void resolve(ResolveArgumentType arg)
+    void then(ResolveHandler onResolve, RejectHandler onReject = nullptr)
     {
-        if (resolveHandler_)
-        {
-            ioContextWrapper_.post([self = this->shared_from_this(), arg = std::move(arg)]() {
-                self->resolveHandler_(arg);
+        onResolve_ = std::move(onResolve);
+        onReject_  = std::move(onReject);
+    }
+
+    void resolve(T value)
+    {
+        if (!isActive_) return;
+        auto self = this->shared_from_this();
+        boost::asio::post(strand_,
+            [this, self, value = std::move(value)]()
+            {
+                if (onResolve_) onResolve_(std::move(value));
+                reset();
             });
-        }
+    }
+
+    void reject(const std::exception_ptr& e)
+    {
+        if (!isActive_) return;
+        auto self = this->shared_from_this();
+        boost::asio::post(strand_,
+            [this, self, e]()
+            {
+                if (onReject_) onReject_(e);
+                reset();
+            });
+    }
+
+    void cancel()
+    {
+        isActive_ = false;
+        reset();
+    }
+
+private:
+    void reset()
+    {
+        onResolve_ = nullptr;
+        onReject_  = nullptr;
+    }
+
+    boost::asio::strand<boost::asio::io_context::executor_type> strand_;
+    ResolveHandler onResolve_;
+    RejectHandler onReject_;
+    bool isActive_;
+};
+
+template<>
+class Promise<void> : public std::enable_shared_from_this<Promise<void>>
+{
+public:
+    using ResolveHandler = std::function<void()>;
+    using RejectHandler  = std::function<void(const std::exception_ptr&)>;
+
+    explicit Promise(boost::asio::io_context& ioContext)
+        : strand_(boost::asio::make_strand(ioContext)),
+          isActive_(true)
+    {
+    }
+
+    void then(ResolveHandler onResolve, RejectHandler onReject = nullptr)
+    {
+        onResolve_ = std::move(onResolve);
+        onReject_  = std::move(onReject);
     }
 
     void resolve()
     {
-        if (resolveHandler_)
-        {
-            ioContextWrapper_.post([self = this->shared_from_this()]() {
-                self->resolveHandler_();
+        if (!isActive_) return;
+        auto self = this->shared_from_this();
+        boost::asio::post(strand_,
+            [this, self]()
+            {
+                if (onResolve_) onResolve_();
+                reset();
             });
-        }
     }
 
-    void reject(ErrorArgumentType arg)
+    void reject(const std::exception_ptr& e)
     {
-        if (rejectHandler_)
-        {
-            ioContextWrapper_.post([self = this->shared_from_this(), arg = std::move(arg)]() {
-                self->rejectHandler_(arg);
+        if (!isActive_) return;
+        auto self = this->shared_from_this();
+        boost::asio::post(strand_,
+            [this, self, e]()
+            {
+                if (onReject_) onReject_(e);
+                reset();
             });
-        }
     }
 
-    void reject()
+    void cancel()
     {
-        if (rejectHandler_)
-        {
-            ioContextWrapper_.post([self = this->shared_from_this()]() {
-                self->rejectHandler_();
-            });
-        }
-    }
-
-    bool isPending() const
-    {
-        return ioContextWrapper_.isRunning();
+        isActive_ = false;
+        reset();
     }
 
 private:
-    boost::asio::io_context& ioContextWrapper_;
-    ResolveHandler resolveHandler_;
-    RejectHandler rejectHandler_;
+    void reset()
+    {
+        onResolve_ = nullptr;
+        onReject_  = nullptr;
+    }
+
+    boost::asio::strand<boost::asio::io_context::executor_type> strand_;
+    ResolveHandler onResolve_;
+    RejectHandler onReject_;
+    bool isActive_;
 };
 
-} // namespace io
 } // namespace aasdk
-} // namespace f1x
-
