@@ -2,3 +2,4 @@
 lib/
 bin/
 CMakeLists.txt.user
+include/f1x/aasdk/IO/oldPromise.hpp
