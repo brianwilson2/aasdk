@@ -6,5 +6,5 @@ CXX_DEFINES = -DBOOST_ALL_DYN_LINK -DBOOST_ALL_NO_LIB -DBOOST_ATOMIC_DYN_LINK -D
 
 CXX_INCLUDES = -I/home/brian/aasdk/build -I/usr/include/libusb-1.0 -I/home/brian/aasdk/include -I/home/brian/aasdk/include_ut
 
-CXX_FLAGS =    -fPIC -Wall -pedantic -fPIC -std=gnu++14
+CXX_FLAGS =    -fPIC -Wall -pedantic -fPIC -std=gnu++17
 

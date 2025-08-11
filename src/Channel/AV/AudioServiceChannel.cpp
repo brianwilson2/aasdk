@@ -30,11 +30,17 @@ namespace channel
 {
 namespace av
 {
-
-AudioServiceChannel::AudioServiceChannel(boost::asio::io_service::strand& strand, messenger::IMessenger::Pointer messenger, messenger::ChannelId channelId)
-    : ServiceChannel(strand, std::move(messenger), channelId)
+// 3. Implement constructor with member initialization list (line ~35)
+AudioServiceChannel::AudioServiceChannel(
+    boost::asio::strand<boost::asio::io_context::executor_type>& strand,
+    f1x::aasdk::messenger::IMessenger::Pointer messenger,
+    f1x::aasdk::messenger::ChannelId channelId)
+    : strand_(strand)
+    , messenger_(std::move(messenger))
+    , channelId_(channelId)
+    , ServiceChannel()  // <-- Check ServiceChannel constructor (see next step)
 {
-
+    // constructor body if needed
 }
 
 void AudioServiceChannel::receive(IAudioServiceChannelEventHandler::Pointer eventHandler)

@@ -13,7 +13,8 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o: \
  /usr/include/arm-linux-gnueabihf/gnu/stubs.h \
  /usr/include/arm-linux-gnueabihf/gnu/stubs-hard.h \
  /usr/include/arm-linux-gnueabihf/c++/12/bits/cpu_defines.h \
- /usr/include/c++/12/string /usr/include/c++/12/bits/stringfwd.h \
+ /usr/include/c++/12/pstl/pstl_config.h /usr/include/c++/12/string \
+ /usr/include/c++/12/bits/stringfwd.h \
  /usr/include/c++/12/bits/memoryfwd.h \
  /usr/include/c++/12/bits/char_traits.h \
  /usr/include/c++/12/bits/postypes.h /usr/include/c++/12/cwchar \
@@ -75,7 +76,10 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o: \
  /usr/include/c++/12/bits/basic_string.h \
  /usr/include/c++/12/ext/alloc_traits.h \
  /usr/include/c++/12/bits/alloc_traits.h \
- /usr/include/c++/12/bits/stl_construct.h \
+ /usr/include/c++/12/bits/stl_construct.h /usr/include/c++/12/string_view \
+ /usr/include/c++/12/bits/functional_hash.h \
+ /usr/include/c++/12/bits/hash_bytes.h \
+ /usr/include/c++/12/bits/string_view.tcc \
  /usr/include/c++/12/ext/string_conversions.h /usr/include/c++/12/cstdlib \
  /usr/include/stdlib.h /usr/include/arm-linux-gnueabihf/bits/waitflags.h \
  /usr/include/arm-linux-gnueabihf/bits/waitstatus.h \
@@ -113,8 +117,6 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o: \
  /usr/include/asm-generic/errno-base.h \
  /usr/include/arm-linux-gnueabihf/bits/types/error_t.h \
  /usr/include/c++/12/bits/charconv.h \
- /usr/include/c++/12/bits/functional_hash.h \
- /usr/include/c++/12/bits/hash_bytes.h \
  /usr/include/c++/12/bits/basic_string.tcc \
  /usr/include/google/protobuf/port_def.inc \
  /usr/include/google/protobuf/port_undef.inc \
@@ -139,7 +141,9 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o: \
  /usr/include/c++/12/bits/algorithmfwd.h \
  /usr/include/c++/12/bits/stl_heap.h \
  /usr/include/c++/12/bits/stl_tempbuf.h \
- /usr/include/c++/12/bits/uniform_int_dist.h /usr/include/c++/12/iostream \
+ /usr/include/c++/12/bits/uniform_int_dist.h \
+ /usr/include/c++/12/pstl/glue_algorithm_defs.h \
+ /usr/include/c++/12/pstl/execution_defs.h /usr/include/c++/12/iostream \
  /usr/include/c++/12/ostream /usr/include/c++/12/ios \
  /usr/include/c++/12/exception /usr/include/c++/12/bits/exception_ptr.h \
  /usr/include/c++/12/bits/cxxabi_init_exception.h \
@@ -178,6 +182,7 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o: \
  /usr/include/c++/12/bits/istream.tcc /usr/include/c++/12/map \
  /usr/include/c++/12/bits/stl_tree.h \
  /usr/include/c++/12/ext/aligned_buffer.h \
+ /usr/include/c++/12/bits/node_handle.h \
  /usr/include/c++/12/bits/stl_map.h /usr/include/c++/12/tuple \
  /usr/include/c++/12/bits/uses_allocator.h \
  /usr/include/c++/12/bits/stl_multimap.h \
@@ -191,7 +196,8 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o: \
  /usr/include/c++/12/bits/allocated_ptr.h \
  /usr/include/c++/12/ext/concurrence.h \
  /usr/include/c++/12/bits/shared_ptr_atomic.h \
- /usr/include/c++/12/backward/auto_ptr.h /usr/include/c++/12/set \
+ /usr/include/c++/12/backward/auto_ptr.h \
+ /usr/include/c++/12/pstl/glue_memory_defs.h /usr/include/c++/12/set \
  /usr/include/c++/12/bits/stl_set.h \
  /usr/include/c++/12/bits/stl_multiset.h /usr/include/c++/12/vector \
  /usr/include/c++/12/bits/stl_vector.h \
@@ -249,7 +255,8 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o: \
  /usr/include/google/protobuf/endian.h \
  /usr/include/google/protobuf/inlined_string_field.h \
  /usr/include/google/protobuf/map.h /usr/include/c++/12/functional \
- /usr/include/c++/12/bits/std_function.h \
+ /usr/include/c++/12/bits/std_function.h /usr/include/c++/12/array \
+ /usr/include/c++/12/compare \
  /usr/include/google/protobuf/map_type_handler.h \
  /usr/include/google/protobuf/extension_set.h /usr/include/c++/12/cassert \
  /home/brian/aasdk/build/aasdk_proto/ControlMessageIdsEnum.pb.h \
@@ -265,8 +272,7 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o: \
  /home/brian/aasdk/include/f1x/aasdk/Channel/AV/AudioServiceChannel.hpp \
  /home/brian/aasdk/include/f1x/aasdk/Messenger/MessageId.hpp \
  /home/brian/aasdk/include/f1x/aasdk/Channel/ServiceChannel.hpp \
- /usr/include/boost/asio.hpp \
- /usr/include/boost/asio/associated_allocator.hpp \
+ /usr/include/boost/asio/strand.hpp \
  /usr/include/boost/asio/detail/config.hpp /usr/include/boost/config.hpp \
  /usr/include/boost/config/user.hpp \
  /usr/include/boost/config/detail/select_compiler_config.hpp \
@@ -287,61 +293,16 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o: \
  /usr/include/boost/config/detail/suffix.hpp \
  /usr/include/boost/config/helper_macros.hpp \
  /usr/include/boost/version.hpp /usr/include/linux/version.h \
- /usr/include/boost/asio/detail/type_traits.hpp \
+ /usr/include/boost/asio/detail/strand_executor_service.hpp \
+ /usr/include/boost/asio/detail/atomic_count.hpp \
+ /usr/include/boost/asio/detail/executor_op.hpp \
+ /usr/include/boost/asio/detail/fenced_block.hpp \
+ /usr/include/boost/asio/detail/std_fenced_block.hpp \
+ /usr/include/boost/asio/detail/noncopyable.hpp \
  /usr/include/boost/asio/detail/push_options.hpp \
  /usr/include/boost/asio/detail/pop_options.hpp \
- /usr/include/boost/asio/associated_executor.hpp \
- /usr/include/boost/asio/execution/executor.hpp \
- /usr/include/boost/asio/execution/execute.hpp \
- /usr/include/boost/asio/execution/detail/as_invocable.hpp \
- /usr/include/boost/asio/detail/atomic_count.hpp \
- /usr/include/boost/asio/detail/memory.hpp \
- /usr/include/boost/asio/execution/receiver_invocation_error.hpp \
- /usr/include/boost/asio/execution/impl/receiver_invocation_error.ipp \
- /usr/include/boost/asio/execution/set_done.hpp \
- /usr/include/boost/asio/traits/set_done_member.hpp \
- /usr/include/boost/asio/traits/set_done_free.hpp \
- /usr/include/boost/asio/execution/set_error.hpp \
- /usr/include/boost/asio/traits/set_error_member.hpp \
- /usr/include/boost/asio/traits/set_error_free.hpp \
- /usr/include/boost/asio/execution/set_value.hpp \
- /usr/include/boost/asio/detail/variadic_templates.hpp \
- /usr/include/boost/asio/traits/set_value_member.hpp \
- /usr/include/boost/asio/traits/set_value_free.hpp \
- /usr/include/boost/asio/execution/detail/as_receiver.hpp \
- /usr/include/boost/asio/traits/execute_member.hpp \
- /usr/include/boost/asio/traits/execute_free.hpp \
- /usr/include/boost/asio/execution/invocable_archetype.hpp \
- /usr/include/boost/asio/traits/equality_comparable.hpp \
- /usr/include/boost/asio/is_executor.hpp \
- /usr/include/boost/asio/detail/is_executor.hpp \
- /usr/include/boost/asio/system_executor.hpp \
- /usr/include/boost/asio/execution.hpp \
- /usr/include/boost/asio/execution/allocator.hpp \
- /usr/include/boost/asio/execution/scheduler.hpp \
- /usr/include/boost/asio/execution/schedule.hpp \
- /usr/include/boost/asio/traits/schedule_member.hpp \
- /usr/include/boost/asio/traits/schedule_free.hpp \
- /usr/include/boost/asio/execution/sender.hpp \
- /usr/include/boost/asio/execution/detail/void_receiver.hpp \
- /usr/include/boost/asio/execution/receiver.hpp \
- /usr/include/boost/asio/execution/connect.hpp \
- /usr/include/boost/asio/execution/detail/as_operation.hpp \
- /usr/include/boost/asio/traits/start_member.hpp \
- /usr/include/boost/asio/execution/operation_state.hpp \
- /usr/include/boost/asio/execution/start.hpp \
- /usr/include/boost/asio/traits/start_free.hpp \
- /usr/include/boost/asio/traits/connect_member.hpp \
- /usr/include/boost/asio/traits/connect_free.hpp \
- /usr/include/boost/asio/is_applicable_property.hpp \
- /usr/include/boost/asio/traits/query_static_constexpr_member.hpp \
- /usr/include/boost/asio/traits/static_query.hpp \
- /usr/include/boost/asio/execution/any_executor.hpp \
- /usr/include/boost/asio/detail/assert.hpp /usr/include/boost/assert.hpp \
- /usr/include/boost/asio/detail/cstddef.hpp \
- /usr/include/boost/asio/detail/executor_function.hpp \
  /usr/include/boost/asio/detail/handler_alloc_helpers.hpp \
- /usr/include/boost/asio/detail/noncopyable.hpp \
+ /usr/include/boost/asio/detail/memory.hpp \
  /usr/include/boost/asio/detail/recycling_allocator.hpp \
  /usr/include/boost/asio/detail/thread_context.hpp \
  /usr/include/boost/asio/detail/call_stack.hpp \
@@ -386,10 +347,66 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o: \
  /usr/include/boost/asio/detail/thread_info_base.hpp \
  /usr/include/boost/asio/multiple_exceptions.hpp \
  /usr/include/boost/asio/impl/multiple_exceptions.ipp \
+ /usr/include/boost/asio/associated_allocator.hpp \
+ /usr/include/boost/asio/detail/type_traits.hpp \
  /usr/include/boost/asio/handler_alloc_hook.hpp \
  /usr/include/boost/asio/impl/handler_alloc_hook.ipp \
- /usr/include/boost/asio/detail/non_const_lvalue.hpp \
+ /usr/include/boost/asio/detail/handler_invoke_helpers.hpp \
+ /usr/include/boost/asio/handler_invoke_hook.hpp \
+ /usr/include/boost/asio/detail/scheduler_operation.hpp \
+ /usr/include/boost/asio/detail/handler_tracking.hpp \
+ /usr/include/boost/asio/detail/impl/handler_tracking.ipp \
+ /usr/include/boost/asio/detail/op_queue.hpp \
+ /usr/include/boost/asio/detail/mutex.hpp \
+ /usr/include/boost/asio/detail/posix_mutex.hpp \
+ /usr/include/boost/asio/detail/scoped_lock.hpp \
+ /usr/include/boost/asio/detail/impl/posix_mutex.ipp \
  /usr/include/boost/asio/detail/scoped_ptr.hpp \
+ /usr/include/boost/asio/execution.hpp \
+ /usr/include/boost/asio/execution/allocator.hpp \
+ /usr/include/boost/asio/execution/executor.hpp \
+ /usr/include/boost/asio/execution/execute.hpp \
+ /usr/include/boost/asio/execution/detail/as_invocable.hpp \
+ /usr/include/boost/asio/execution/receiver_invocation_error.hpp \
+ /usr/include/boost/asio/execution/impl/receiver_invocation_error.ipp \
+ /usr/include/boost/asio/execution/set_done.hpp \
+ /usr/include/boost/asio/traits/set_done_member.hpp \
+ /usr/include/boost/asio/traits/set_done_free.hpp \
+ /usr/include/boost/asio/execution/set_error.hpp \
+ /usr/include/boost/asio/traits/set_error_member.hpp \
+ /usr/include/boost/asio/traits/set_error_free.hpp \
+ /usr/include/boost/asio/execution/set_value.hpp \
+ /usr/include/boost/asio/detail/variadic_templates.hpp \
+ /usr/include/boost/asio/traits/set_value_member.hpp \
+ /usr/include/boost/asio/traits/set_value_free.hpp \
+ /usr/include/boost/asio/execution/detail/as_receiver.hpp \
+ /usr/include/boost/asio/traits/execute_member.hpp \
+ /usr/include/boost/asio/traits/execute_free.hpp \
+ /usr/include/boost/asio/execution/invocable_archetype.hpp \
+ /usr/include/boost/asio/traits/equality_comparable.hpp \
+ /usr/include/boost/asio/execution/scheduler.hpp \
+ /usr/include/boost/asio/execution/schedule.hpp \
+ /usr/include/boost/asio/traits/schedule_member.hpp \
+ /usr/include/boost/asio/traits/schedule_free.hpp \
+ /usr/include/boost/asio/execution/sender.hpp \
+ /usr/include/boost/asio/execution/detail/void_receiver.hpp \
+ /usr/include/boost/asio/execution/receiver.hpp \
+ /usr/include/boost/asio/execution/connect.hpp \
+ /usr/include/boost/asio/execution/detail/as_operation.hpp \
+ /usr/include/boost/asio/traits/start_member.hpp \
+ /usr/include/boost/asio/execution/operation_state.hpp \
+ /usr/include/boost/asio/execution/start.hpp \
+ /usr/include/boost/asio/traits/start_free.hpp \
+ /usr/include/boost/asio/traits/connect_member.hpp \
+ /usr/include/boost/asio/traits/connect_free.hpp \
+ /usr/include/boost/asio/is_applicable_property.hpp \
+ /usr/include/boost/asio/traits/query_static_constexpr_member.hpp \
+ /usr/include/boost/asio/traits/static_query.hpp \
+ /usr/include/boost/asio/execution/any_executor.hpp \
+ /usr/include/boost/asio/detail/assert.hpp /usr/include/boost/assert.hpp \
+ /usr/include/boost/asio/detail/cstddef.hpp \
+ /usr/include/boost/asio/detail/executor_function.hpp \
+ /usr/include/boost/asio/detail/non_const_lvalue.hpp \
  /usr/include/boost/asio/execution/bad_executor.hpp \
  /usr/include/boost/asio/execution/impl/bad_executor.ipp \
  /usr/include/boost/asio/execution/blocking.hpp \
@@ -407,16 +424,12 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o: \
  /usr/include/boost/asio/detail/event.hpp \
  /usr/include/boost/asio/detail/posix_event.hpp \
  /usr/include/boost/asio/detail/impl/posix_event.ipp \
- /usr/include/boost/asio/detail/mutex.hpp \
- /usr/include/boost/asio/detail/posix_mutex.hpp \
- /usr/include/boost/asio/detail/scoped_lock.hpp \
- /usr/include/boost/asio/detail/impl/posix_mutex.ipp \
  /usr/include/boost/asio/execution/bulk_execute.hpp \
  /usr/include/boost/asio/execution/bulk_guarantee.hpp \
  /usr/include/boost/asio/execution/detail/bulk_sender.hpp \
  /usr/include/boost/asio/traits/bulk_execute_member.hpp \
  /usr/include/boost/asio/traits/bulk_execute_free.hpp \
- /usr/include/boost/asio/execution/context.hpp \
+ /usr/include/boost/asio/execution/context.hpp /usr/include/c++/12/any \
  /usr/include/boost/asio/execution/context_as.hpp \
  /usr/include/boost/asio/execution/mapping.hpp \
  /usr/include/boost/asio/execution/occupancy.hpp \
@@ -427,20 +440,6 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o: \
  /usr/include/boost/asio/execution/detail/submit_receiver.hpp \
  /usr/include/boost/asio/traits/submit_member.hpp \
  /usr/include/boost/asio/traits/submit_free.hpp \
- /usr/include/boost/asio/impl/system_executor.hpp \
- /usr/include/boost/asio/detail/executor_op.hpp \
- /usr/include/boost/asio/detail/fenced_block.hpp \
- /usr/include/boost/asio/detail/std_fenced_block.hpp \
- /usr/include/boost/asio/detail/handler_invoke_helpers.hpp \
- /usr/include/boost/asio/handler_invoke_hook.hpp \
- /usr/include/boost/asio/detail/scheduler_operation.hpp \
- /usr/include/boost/asio/detail/handler_tracking.hpp \
- /usr/include/boost/asio/detail/impl/handler_tracking.ipp \
- /usr/include/boost/asio/detail/op_queue.hpp \
- /usr/include/boost/asio/detail/global.hpp \
- /usr/include/boost/asio/detail/posix_global.hpp \
- /usr/include/boost/asio/system_context.hpp \
- /usr/include/boost/asio/detail/scheduler.hpp \
  /usr/include/boost/asio/execution_context.hpp \
  /usr/include/boost/asio/impl/execution_context.hpp \
  /usr/include/boost/asio/detail/handler_type_requirements.hpp \
@@ -449,6 +448,17 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o: \
  /usr/include/boost/asio/detail/impl/service_registry.hpp \
  /usr/include/boost/asio/detail/impl/service_registry.ipp \
  /usr/include/boost/asio/impl/execution_context.ipp \
+ /usr/include/boost/asio/detail/impl/strand_executor_service.hpp \
+ /usr/include/boost/asio/executor_work_guard.hpp \
+ /usr/include/boost/asio/associated_executor.hpp \
+ /usr/include/boost/asio/is_executor.hpp \
+ /usr/include/boost/asio/detail/is_executor.hpp \
+ /usr/include/boost/asio/system_executor.hpp \
+ /usr/include/boost/asio/impl/system_executor.hpp \
+ /usr/include/boost/asio/detail/global.hpp \
+ /usr/include/boost/asio/detail/posix_global.hpp \
+ /usr/include/boost/asio/system_context.hpp \
+ /usr/include/boost/asio/detail/scheduler.hpp \
  /usr/include/boost/asio/detail/conditionally_enabled_event.hpp \
  /usr/include/boost/asio/detail/conditionally_enabled_mutex.hpp \
  /usr/include/boost/asio/detail/null_event.hpp \
@@ -534,7 +544,23 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o: \
  /usr/include/boost/asio/detail/thread_group.hpp \
  /usr/include/boost/asio/impl/system_context.hpp \
  /usr/include/boost/asio/impl/system_context.ipp \
- /usr/include/boost/asio/awaitable.hpp \
+ /usr/include/boost/asio/defer.hpp /usr/include/boost/asio/impl/defer.hpp \
+ /usr/include/boost/asio/detail/work_dispatcher.hpp \
+ /usr/include/boost/asio/dispatch.hpp \
+ /usr/include/boost/asio/impl/dispatch.hpp \
+ /usr/include/boost/asio/post.hpp /usr/include/boost/asio/impl/post.hpp \
+ /usr/include/boost/asio/detail/impl/strand_executor_service.ipp \
+ /home/brian/aasdk/include/f1x/aasdk/Messenger/IMessenger.hpp \
+ /home/brian/aasdk/include/f1x/aasdk/Messenger/ICryptor.hpp \
+ /home/brian/aasdk/include/f1x/aasdk/Messenger/Message.hpp \
+ /usr/include/boost/noncopyable.hpp \
+ /usr/include/boost/core/noncopyable.hpp \
+ /home/brian/aasdk/include/f1x/aasdk/Messenger/ChannelId.hpp \
+ /home/brian/aasdk/include/f1x/aasdk/Messenger/EncryptionType.hpp \
+ /home/brian/aasdk/include/f1x/aasdk/Messenger/MessageType.hpp \
+ /home/brian/aasdk/include/f1x/aasdk/Messenger/Promise.hpp \
+ /home/brian/aasdk/include/f1x/aasdk/IO/Promise.hpp \
+ /usr/include/boost/asio.hpp /usr/include/boost/asio/awaitable.hpp \
  /usr/include/boost/asio/basic_datagram_socket.hpp \
  /usr/include/boost/asio/basic_socket.hpp \
  /usr/include/boost/asio/any_io_executor.hpp \
@@ -548,22 +574,18 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o: \
  /usr/include/boost/asio/impl/io_context.hpp \
  /usr/include/boost/asio/detail/completion_handler.hpp \
  /usr/include/boost/asio/detail/handler_work.hpp \
- /usr/include/boost/asio/executor_work_guard.hpp \
  /usr/include/boost/asio/impl/io_context.ipp \
- /usr/include/boost/asio/post.hpp /usr/include/boost/asio/impl/post.hpp \
- /usr/include/boost/asio/detail/work_dispatcher.hpp \
+ /usr/include/boost/asio/io_context_strand.hpp \
+ /usr/include/boost/asio/detail/strand_service.hpp \
+ /usr/include/boost/asio/detail/impl/strand_service.hpp \
+ /usr/include/boost/asio/detail/impl/strand_service.ipp \
  /usr/include/boost/asio/socket_base.hpp \
  /usr/include/boost/asio/detail/io_control.hpp \
  /usr/include/boost/asio/detail/socket_option.hpp \
  /usr/include/boost/asio/detail/reactive_socket_service.hpp \
  /usr/include/boost/asio/buffer.hpp \
- /usr/include/boost/asio/detail/array_fwd.hpp /usr/include/c++/12/array \
- /usr/include/c++/12/compare \
+ /usr/include/boost/asio/detail/array_fwd.hpp \
  /usr/include/boost/asio/detail/string_view.hpp \
- /usr/include/c++/12/experimental/string_view \
- /usr/include/c++/12/bits/ranges_base.h \
- /usr/include/c++/12/experimental/bits/lfts_config.h \
- /usr/include/c++/12/experimental/bits/string_view.tcc \
  /usr/include/boost/detail/workaround.hpp \
  /usr/include/boost/asio/detail/is_buffer_sequence.hpp \
  /usr/include/boost/asio/detail/buffer_sequence_adapter.hpp \
@@ -635,6 +657,18 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o: \
  /usr/include/arm-linux-gnueabihf/bits/mathcalls.h \
  /usr/include/arm-linux-gnueabihf/bits/mathcalls-narrow.h \
  /usr/include/arm-linux-gnueabihf/bits/iscanonical.h \
+ /usr/include/c++/12/bits/specfun.h /usr/include/c++/12/tr1/gamma.tcc \
+ /usr/include/c++/12/tr1/special_function_util.h \
+ /usr/include/c++/12/tr1/bessel_function.tcc \
+ /usr/include/c++/12/tr1/beta_function.tcc \
+ /usr/include/c++/12/tr1/ell_integral.tcc \
+ /usr/include/c++/12/tr1/exp_integral.tcc \
+ /usr/include/c++/12/tr1/hypergeometric.tcc \
+ /usr/include/c++/12/tr1/legendre_function.tcc \
+ /usr/include/c++/12/tr1/modified_bessel_func.tcc \
+ /usr/include/c++/12/tr1/poly_hermite.tcc \
+ /usr/include/c++/12/tr1/poly_laguerre.tcc \
+ /usr/include/c++/12/tr1/riemann_zeta.tcc \
  /usr/include/boost/date_time/time_duration.hpp \
  /usr/include/boost/core/enable_if.hpp \
  /usr/include/boost/date_time/special_defs.hpp \
@@ -904,11 +938,8 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o: \
  /usr/include/boost/asio/impl/connect.hpp \
  /usr/include/boost/asio/coroutine.hpp \
  /usr/include/boost/asio/deadline_timer.hpp \
- /usr/include/boost/asio/defer.hpp /usr/include/boost/asio/impl/defer.hpp \
  /usr/include/boost/asio/detached.hpp \
  /usr/include/boost/asio/impl/detached.hpp \
- /usr/include/boost/asio/dispatch.hpp \
- /usr/include/boost/asio/impl/dispatch.hpp \
  /usr/include/boost/asio/executor.hpp \
  /usr/include/boost/asio/impl/executor.hpp \
  /usr/include/boost/asio/impl/executor.ipp \
@@ -920,10 +951,6 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o: \
  /usr/include/boost/asio/generic/seq_packet_protocol.hpp \
  /usr/include/boost/asio/generic/stream_protocol.hpp \
  /usr/include/boost/asio/high_resolution_timer.hpp \
- /usr/include/boost/asio/io_context_strand.hpp \
- /usr/include/boost/asio/detail/strand_service.hpp \
- /usr/include/boost/asio/detail/impl/strand_service.hpp \
- /usr/include/boost/asio/detail/impl/strand_service.ipp \
  /usr/include/boost/asio/io_service.hpp \
  /usr/include/boost/asio/io_service_strand.hpp \
  /usr/include/boost/asio/ip/address.hpp \
@@ -1144,10 +1171,6 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o: \
  /usr/include/boost/asio/detail/blocking_executor_op.hpp \
  /usr/include/boost/asio/detail/bulk_executor_op.hpp \
  /usr/include/boost/asio/impl/thread_pool.ipp \
- /usr/include/boost/asio/strand.hpp \
- /usr/include/boost/asio/detail/strand_executor_service.hpp \
- /usr/include/boost/asio/detail/impl/strand_executor_service.hpp \
- /usr/include/boost/asio/detail/impl/strand_executor_service.ipp \
  /usr/include/boost/asio/streambuf.hpp \
  /usr/include/boost/asio/system_timer.hpp \
  /usr/include/boost/asio/this_coro.hpp \
@@ -1166,24 +1189,13 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o: \
  /usr/include/boost/asio/windows/stream_handle.hpp \
  /usr/include/boost/asio/write_at.hpp \
  /usr/include/boost/asio/impl/write_at.hpp \
- /home/brian/aasdk/include/f1x/aasdk/Messenger/IMessenger.hpp \
- /home/brian/aasdk/include/f1x/aasdk/Messenger/ICryptor.hpp \
- /home/brian/aasdk/include/f1x/aasdk/Messenger/Message.hpp \
- /usr/include/boost/noncopyable.hpp \
- /usr/include/boost/core/noncopyable.hpp \
- /home/brian/aasdk/include/f1x/aasdk/Messenger/ChannelId.hpp \
- /home/brian/aasdk/include/f1x/aasdk/Messenger/EncryptionType.hpp \
- /home/brian/aasdk/include/f1x/aasdk/Messenger/MessageType.hpp \
- /home/brian/aasdk/include/f1x/aasdk/Messenger/Promise.hpp \
- /home/brian/aasdk/include/f1x/aasdk/IO/Promise.hpp \
- /home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp \
- /home/brian/aasdk/include/f1x/aasdk/Channel/Promise.hpp \
  /home/brian/aasdk/include/f1x/aasdk/Channel/AV/IAudioServiceChannel.hpp \
  /home/brian/aasdk/build/aasdk_proto/AVChannelSetupResponseMessage.pb.h \
  /home/brian/aasdk/build/aasdk_proto/AVChannelSetupStatusEnum.pb.h \
  /home/brian/aasdk/build/aasdk_proto/AVMediaAckIndicationMessage.pb.h \
  /home/brian/aasdk/build/aasdk_proto/ChannelOpenResponseMessage.pb.h \
  /home/brian/aasdk/build/aasdk_proto/StatusEnum.pb.h \
+ /home/brian/aasdk/include/f1x/aasdk/Channel/Promise.hpp \
  /home/brian/aasdk/include/f1x/aasdk/Common/Log.hpp \
  /usr/include/boost/log/trivial.hpp \
  /usr/include/boost/log/detail/config.hpp \

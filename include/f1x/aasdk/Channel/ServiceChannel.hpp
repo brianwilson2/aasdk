@@ -15,12 +15,11 @@
 *  You should have received a copy of the GNU General Public License
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
-
 #pragma once
 
-#include <boost/asio.hpp>
+#include <boost/asio/strand.hpp>
 #include <f1x/aasdk/Messenger/IMessenger.hpp>
-#include <f1x/aasdk/Channel/Promise.hpp>
+#include <f1x/aasdk/Messenger/Promise.hpp>  // for SendPromise
 
 namespace f1x
 {
@@ -32,18 +31,20 @@ namespace channel
 class ServiceChannel
 {
 protected:
-    ServiceChannel(boost::asio::io_service::strand& strand,
+    ServiceChannel(boost::asio::strand<boost::asio::io_context::executor_type>& strand,
                    messenger::IMessenger::Pointer messenger,
                    messenger::ChannelId channelId);
 
     virtual ~ServiceChannel() = default;
-    void send(messenger::Message::Pointer message, SendPromise::Pointer promise);
 
-    boost::asio::io_service::strand& strand_;
+    void send(messenger::Message::Pointer message, messenger::SendPromise::Pointer promise);
+
+    boost::asio::strand<boost::asio::io_context::executor_type>& strand_;
     messenger::IMessenger::Pointer messenger_;
     messenger::ChannelId channelId_;
 };
 
-}
-}
-}
+} // namespace channel
+} // namespace aasdk
+} // namespace f1x
+

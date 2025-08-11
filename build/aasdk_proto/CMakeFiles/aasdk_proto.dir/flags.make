@@ -6,5 +6,5 @@ CXX_DEFINES = -DBOOST_ALL_DYN_LINK -Daasdk_proto_EXPORTS
 
 CXX_INCLUDES = 
 
-CXX_FLAGS =    -fPIC -Wall -pedantic -fPIC -std=gnu++14
+CXX_FLAGS =    -fPIC -Wall -pedantic -fPIC -std=gnu++17
 
