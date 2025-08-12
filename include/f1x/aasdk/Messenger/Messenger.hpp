@@ -37,13 +37,13 @@ class Messenger: public IMessenger, public std::enable_shared_from_this<Messenge
 {
 public:
     Messenger(boost::asio::io_service& ioService, IMessageInStream::Pointer messageInStream, IMessageOutStream::Pointer messageOutStream);
-    void enqueueReceive(ChannelId channelId, ReceivePromise::Pointer promise) override;
-    void enqueueSend(Message::Pointer message, SendPromise::Pointer promise) override;
+    void enqueueReceive(ChannelId channelId, messenger::ReceivePromise::Pointer promise) override;
+    void enqueueSend(Message::Pointer message, messenger::SendPromise::Pointer promise) override;
     void stop() override;
 
 private:
     using std::enable_shared_from_this<Messenger>::shared_from_this;
-    typedef std::list<std::pair<Message::Pointer, SendPromise::Pointer>> ChannelSendQueue;
+    typedef std::list<std::pair<Message::Pointer, messenger::SendPromise::Pointer>> ChannelSendQueue;
     void doSend();
     void inStreamMessageHandler(Message::Pointer message);
     void outStreamMessageHandler(ChannelSendQueue::iterator queueElement);

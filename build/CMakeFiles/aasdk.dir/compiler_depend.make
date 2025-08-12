@@ -638,7 +638,6 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AVInputServiceChannel.cpp.o: /home/brian/aas
   /home/brian/aasdk/include/f1x/aasdk/Messenger/EncryptionType.hpp \
   /home/brian/aasdk/include/f1x/aasdk/Messenger/MessageType.hpp \
   /home/brian/aasdk/include/f1x/aasdk/Messenger/Promise.hpp \
-  /home/brian/aasdk/include/f1x/aasdk/IO/Promise.hpp \
   /usr/include/boost/asio.hpp \
   /usr/include/boost/asio/awaitable.hpp \
   /usr/include/boost/asio/basic_datagram_socket.hpp \
@@ -1305,6 +1304,7 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AVInputServiceChannel.cpp.o: /home/brian/aas
   aasdk_proto/ChannelOpenResponseMessage.pb.h \
   aasdk_proto/StatusEnum.pb.h \
   /home/brian/aasdk/include/f1x/aasdk/Channel/Promise.hpp \
+  /home/brian/aasdk/include/f1x/aasdk/IO/Promise.hpp \
   /home/brian/aasdk/include/f1x/aasdk/Common/Log.hpp \
   /usr/include/boost/log/trivial.hpp \
   /usr/include/boost/log/detail/config.hpp \
@@ -6006,6 +6006,8 @@ aasdk_proto/AVChannelStopIndicationMessage.pb.h:
 
 /home/brian/aasdk/include/f1x/aasdk/Common/Log.hpp:
 
+/home/brian/aasdk/include/f1x/aasdk/IO/Promise.hpp:
+
 /usr/include/boost/preprocessor/seq/size.hpp:
 
 /usr/include/boost/preprocessor/facilities/intercept.hpp:
@@ -6271,8 +6273,6 @@ aasdk_proto/AVChannelSetupStatusEnum.pb.h:
 /usr/include/boost/is_placeholder.hpp:
 
 /usr/include/boost/bind/arg.hpp:
-
-/usr/include/boost/asio/placeholders.hpp:
 
 /usr/include/boost/asio/detail/object_pool.hpp:
 
@@ -7980,8 +7980,6 @@ aasdk_proto/StatusEnum.pb.h:
 
 /home/brian/aasdk/include/f1x/aasdk/Messenger/Promise.hpp:
 
-/home/brian/aasdk/include/f1x/aasdk/IO/Promise.hpp:
-
 /usr/include/boost/asio.hpp:
 
 /usr/include/boost/asio/detail/conditionally_enabled_mutex.hpp:
@@ -8131,6 +8129,8 @@ aasdk_proto/AVChannelSetupResponseMessage.pb.h:
 /usr/include/boost/core/checked_delete.hpp:
 
 /usr/include/boost/smart_ptr/detail/sp_nullptr_t.hpp:
+
+/usr/include/boost/asio/placeholders.hpp:
 
 /usr/include/boost/asio/detail/limits.hpp:
 

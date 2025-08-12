@@ -37,7 +37,7 @@ class MessageOutStream: public IMessageOutStream, public std::enable_shared_from
 public:
     MessageOutStream(boost::asio::io_service& ioService, transport::ITransport::Pointer transport, ICryptor::Pointer cryptor);
 
-    void stream(Message::Pointer message, SendPromise::Pointer promise) override;
+    void stream(Message::Pointer message, messenger::SendPromise::Pointer promise) override;
 
 private:
     using std::enable_shared_from_this<MessageOutStream>::shared_from_this;
@@ -55,7 +55,7 @@ private:
     Message::Pointer message_;
     size_t offset_;
     size_t remainingSize_;
-    SendPromise::Pointer promise_;
+    messenger::SendPromise::Pointer promise_;
 
         static constexpr size_t cMaxFramePayloadSize = 0x4000;
 };

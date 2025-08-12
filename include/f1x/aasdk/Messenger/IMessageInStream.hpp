@@ -36,7 +36,7 @@ public:
     IMessageInStream() = default;
     virtual ~IMessageInStream() = default;
 
-    virtual void startReceive(ReceivePromise::Pointer promise) = 0;
+    virtual void startReceive(messenger::ReceivePromise::Pointer promise) = 0;
 };
 
 }

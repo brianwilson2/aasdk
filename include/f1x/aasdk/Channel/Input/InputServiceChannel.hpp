@@ -36,9 +36,9 @@ class InputServiceChannel: public IInputServiceChannel, public ServiceChannel, p
     InputServiceChannel(boost::asio::io_service::strand& strand, messenger::IMessenger::Pointer messenger);
 
     void receive(IInputServiceChannelEventHandler::Pointer eventHandler) override;
-    void sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, SendPromise::Pointer promise) override;
-    void sendInputEventIndication(const proto::messages::InputEventIndication& indication, SendPromise::Pointer promise) override;
-    void sendBindingResponse(const proto::messages::BindingResponse& response, SendPromise::Pointer promise) override;
+    void sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, messenger::SendPromise::Pointer promise) override;
+    void sendInputEventIndication(const proto::messages::InputEventIndication& indication, messenger::SendPromise::Pointer promise) override;
+    void sendBindingResponse(const proto::messages::BindingResponse& response, messenger::SendPromise::Pointer promise) override;
     messenger::ChannelId getId() const override;
 
 private:

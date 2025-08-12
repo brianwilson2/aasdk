@@ -639,7 +639,6 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AVInputServiceChannel.cpp.o
  /home/brian/aasdk/include/f1x/aasdk/Messenger/EncryptionType.hpp
  /home/brian/aasdk/include/f1x/aasdk/Messenger/MessageType.hpp
  /home/brian/aasdk/include/f1x/aasdk/Messenger/Promise.hpp
- /home/brian/aasdk/include/f1x/aasdk/IO/Promise.hpp
  /usr/include/boost/asio.hpp
  /usr/include/boost/asio/awaitable.hpp
  /usr/include/boost/asio/basic_datagram_socket.hpp
@@ -1306,6 +1305,7 @@ CMakeFiles/aasdk.dir/src/Channel/AV/AVInputServiceChannel.cpp.o
  /home/brian/aasdk/build/aasdk_proto/ChannelOpenResponseMessage.pb.h
  /home/brian/aasdk/build/aasdk_proto/StatusEnum.pb.h
  /home/brian/aasdk/include/f1x/aasdk/Channel/Promise.hpp
+ /home/brian/aasdk/include/f1x/aasdk/IO/Promise.hpp
  /home/brian/aasdk/include/f1x/aasdk/Common/Log.hpp
  /usr/include/boost/log/trivial.hpp
  /usr/include/boost/log/detail/config.hpp

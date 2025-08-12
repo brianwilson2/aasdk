@@ -32,16 +32,16 @@ namespace messenger
 class ChannelReceivePromiseQueue
 {
 public:
-    void push(ChannelId channelId, ReceivePromise::Pointer promise);
-    ReceivePromise::Pointer pop(ChannelId channelId);
+    void push(ChannelId channelId, messenger::ReceivePromise::Pointer promise);
+    messenger::ReceivePromise::Pointer pop(ChannelId channelId);
     bool isPending(ChannelId channelId) const;
     size_t size() const;
     bool empty() const;
     void clear();
-    ReceivePromise::Pointer pop();
+    messenger::ReceivePromise::Pointer pop();
 
 private:
-    std::unordered_map<ChannelId, std::queue<ReceivePromise::Pointer>> queue_;
+    std::unordered_map<ChannelId, std::queue<messenger::ReceivePromise::Pointer>> queue_;
 };
 
 }

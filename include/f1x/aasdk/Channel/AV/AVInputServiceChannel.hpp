@@ -38,9 +38,9 @@ public:
     AVInputServiceChannel(boost::asio::io_service::strand& strand, messenger::IMessenger::Pointer messenger);
 
     void receive(IAVInputServiceChannelEventHandler::Pointer eventHandler) override;
-    void sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, SendPromise::Pointer promise) override;
-    void sendAVChannelSetupResponse(const proto::messages::AVChannelSetupResponse& response, SendPromise::Pointer promise) override;
-    void sendAVInputOpenResponse(const proto::messages::AVInputOpenResponse& response, SendPromise::Pointer promise) override;
+    void sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, messenger::SendPromise::Pointer promise) override;
+    void sendAVChannelSetupResponse(const proto::messages::AVChannelSetupResponse& response, messenger::SendPromise::Pointer promise) override;
+    void sendAVInputOpenResponse(const proto::messages::AVInputOpenResponse& response, messenger::SendPromise::Pointer promise) override;
     void sendAVMediaWithTimestampIndication(messenger::Timestamp::ValueType, const common::Data& data, SendPromise::Pointer promise) override;
     messenger::ChannelId getId() const override;
 

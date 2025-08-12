@@ -49,15 +49,15 @@ public:
 
     virtual void receive(IControlServiceChannelEventHandler::Pointer eventHandler) = 0;
 
-    virtual void sendVersionRequest(SendPromise::Pointer promise) = 0;
-    virtual void sendHandshake(common::Data handshakeBuffer, SendPromise::Pointer promise) = 0;
-    virtual void sendAuthComplete(const proto::messages::AuthCompleteIndication& response, SendPromise::Pointer promise) = 0;
-    virtual void sendServiceDiscoveryResponse(const proto::messages::ServiceDiscoveryResponse& response, SendPromise::Pointer promise) = 0;
-    virtual void sendAudioFocusResponse(const proto::messages::AudioFocusResponse& response, SendPromise::Pointer promise) = 0;
-    virtual void sendShutdownRequest(const proto::messages::ShutdownRequest& request, SendPromise::Pointer promise) = 0;
-    virtual void sendShutdownResponse(const proto::messages::ShutdownResponse& response, SendPromise::Pointer promise) = 0;
-    virtual void sendNavigationFocusResponse(const proto::messages::NavigationFocusResponse& response, SendPromise::Pointer promise) = 0;
-    virtual void sendPingRequest(const proto::messages::PingRequest& request, SendPromise::Pointer promise) = 0;
+    virtual void sendVersionRequest(messenger::SendPromise::Pointer promise) = 0;
+    virtual void sendHandshake(common::Data handshakeBuffer, messenger::SendPromise::Pointer promise) = 0;
+    virtual void sendAuthComplete(const proto::messages::AuthCompleteIndication& response, messenger::SendPromise::Pointer promise) = 0;
+    virtual void sendServiceDiscoveryResponse(const proto::messages::ServiceDiscoveryResponse& response, messenger::SendPromise::Pointer promise) = 0;
+    virtual void sendAudioFocusResponse(const proto::messages::AudioFocusResponse& response, messenger::SendPromise::Pointer promise) = 0;
+    virtual void sendShutdownRequest(const proto::messages::ShutdownRequest& request, messenger::SendPromise::Pointer promise) = 0;
+    virtual void sendShutdownResponse(const proto::messages::ShutdownResponse& response, messenger::SendPromise::Pointer promise) = 0;
+    virtual void sendNavigationFocusResponse(const proto::messages::NavigationFocusResponse& response, messenger::SendPromise::Pointer promise) = 0;
+    virtual void sendPingRequest(const proto::messages::PingRequest& request, messenger::SendPromise::Pointer promise) = 0;
 };
 
 }

@@ -17,20 +17,52 @@
 */
 
 #pragma once
+#pragma once
 
-#include <f1x/aasdk/Messenger/Message.hpp>
-#include <f1x/aasdk/IO/Promise.hpp>
+#include <boost/asio.hpp>
+#include <functional>
+#include <memory>
 
-namespace f1x
-{
-namespace aasdk
-{
-namespace messenger
-{
+namespace aasdk {
+namespace messenger {
 
-typedef io::Promise<Message::Pointer> ReceivePromise;
-typedef io::Promise<void> SendPromise;
+template<typename T = void>
+class Promise : public std::enable_shared_from_this<Promise<T>> {
+public:
+    using ResolveHandler = std::function<void(T)>;
+    using RejectHandler = std::function<void(std::exception_ptr)>;
 
-}
-}
-}
+    Promise(boost::asio::io_context& ioContext)
+        : strand_(boost::asio::make_strand(ioContext)) {}
+
+    void resolve(T value) {
+        auto self = this->shared_from_this();
+        boost::asio::post(strand_, [this, self, value = std::move(value)] {
+            if (resolveHandler_) {
+                resolveHandler_(std::move(value));
+            }
+        });
+    }
+
+    void reject(std::exception_ptr error) {
+        auto self = this->shared_from_this();
+        boost::asio::post(strand_, [this, self, error] {
+            if (rejectHandler_) {
+                rejectHandler_(error);
+            }
+        });
+    }
+
+    void then(ResolveHandler onResolve, RejectHandler onReject = nullptr) {
+        resolveHandler_ = std::move(onResolve);
+        rejectHandler_  = std::move(onReject);
+    }
+
+private:
+    boost::asio::strand<boost::asio::io_context::executor_type> strand_;
+    ResolveHandler resolveHandler_;
+    RejectHandler rejectHandler_;
+};
+
+} // namespace messenger
+} // namespace aasdk

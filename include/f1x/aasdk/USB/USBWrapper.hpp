@@ -32,24 +32,24 @@ class USBWrapper: public IUSBWrapper
 public:
     USBWrapper(libusb_context* usbContext);
 
-    int releaseInterface(const DeviceHandle& dev_handle, int interface_number) override;
-    libusb_device* getDevice(const DeviceHandle& dev_handle) override;
-    int claimInterface(const DeviceHandle& dev_handle, int interface_number) override;
+    int releaseInterface(DeviceHandle  dev_handle, int interface_number) override;
+    libusb_device* getDevice(DeviceHandle  dev_handle) override;
+    int claimInterface(DeviceHandle  dev_handle, int interface_number) override;
     DeviceHandle openDeviceWithVidPid(uint16_t vendor_id, uint16_t product_id) override;
     int getConfigDescriptor(libusb_device *dev, uint8_t config_index, ConfigDescriptorHandle& config_descriptor_handle) override;
 
     void fillBulkTransfer(libusb_transfer *transfer,
-        const DeviceHandle& dev_handle, unsigned char endpoint,
+        DeviceHandle  dev_handle, unsigned char endpoint,
         unsigned char *buffer, int length, libusb_transfer_cb_fn callback,
         void *user_data, unsigned int timeout) override;
 
     void fillInterruptTransfer(libusb_transfer *transfer,
-        const DeviceHandle& dev_handle, unsigned char endpoint,
+        DeviceHandle  dev_handle, unsigned char endpoint,
         unsigned char *buffer, int length, libusb_transfer_cb_fn callback,
         void *user_data, unsigned int timeout) override;
 
     void fillControlTransfer(
-        libusb_transfer *transfer, const DeviceHandle& dev_handle,
+        libusb_transfer *transfer, DeviceHandle  dev_handle,
         unsigned char *buffer, libusb_transfer_cb_fn callback, void *user_data,
         unsigned int timeout) override;
 

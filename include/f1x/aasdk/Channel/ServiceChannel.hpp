@@ -31,14 +31,15 @@ namespace channel
 class ServiceChannel
 {
 protected:
-    ServiceChannel(boost::asio::strand<boost::asio::io_context::executor_type>& strand,
+    ServiceChannel(boost::asio::io_service::strand& strand,
                    messenger::IMessenger::Pointer messenger,
                    messenger::ChannelId channelId);
 
     virtual ~ServiceChannel() = default;
 
     void send(messenger::Message::Pointer message, messenger::SendPromise::Pointer promise);
-    boost::asio::strand<boost::asio::io_context::executor_type>& strand_;
+
+    boost::asio::io_service::strand& strand_;
     messenger::IMessenger::Pointer messenger_;
     messenger::ChannelId channelId_;
 };
@@ -46,4 +47,3 @@ protected:
 } // namespace channel
 } // namespace aasdk
 } // namespace f1x
-

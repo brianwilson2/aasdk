@@ -46,7 +46,7 @@ public:
     virtual SSL* createInstance(SSL_CTX* context) = 0;
     virtual bool checkPrivateKey(SSL* ssl) = 0;
     virtual std::pair<BIO*, BIO*> createBIOs() = 0;
-    virtual void setBIOs(SSL* ssl, const BIOs& bIOs, size_t maxBufferSize) = 0;
+    virtual void setBIOs(SSL* ssl, BIOs  bIOs, size_t maxBufferSize) = 0;
     virtual void setConnectState(SSL* ssl) = 0;
     virtual int doHandshake(SSL* ssl) = 0;
     virtual void free(SSL* ssl) = 0;

@@ -42,7 +42,7 @@ public:
     SSL* createInstance(SSL_CTX* context) override;
     bool checkPrivateKey(SSL* ssl) override;
     BIOs createBIOs() override;
-    void setBIOs(SSL* ssl, const BIOs& bIOs, size_t maxBufferSize) override;
+    void setBIOs(SSL* ssl, BIOs  bIOs, size_t maxBufferSize) override;
     void setConnectState(SSL* ssl) override;
     int doHandshake(SSL* ssl) override;
     int getError(SSL* ssl, int returnCode) override;

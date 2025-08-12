@@ -37,9 +37,9 @@ public:
 
     void receive(ISensorServiceChannelEventHandler::Pointer eventHandler) override;
     messenger::ChannelId getId() const override;
-    void sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, SendPromise::Pointer promise) override;
-    void sendSensorEventIndication(const proto::messages::SensorEventIndication& indication, SendPromise::Pointer promise) override;
-    void sendSensorStartResponse(const proto::messages::SensorStartResponseMessage& response, SendPromise::Pointer promise) override;
+    void sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, messenger::SendPromise::Pointer promise) override;
+    void sendSensorEventIndication(const proto::messages::SensorEventIndication& indication, messenger::SendPromise::Pointer promise) override;
+    void sendSensorStartResponse(const proto::messages::SensorStartResponseMessage& response, messenger::SendPromise::Pointer promise) override;
 
 private:
     using std::enable_shared_from_this<SensorServiceChannel>::shared_from_this;

@@ -20,7 +20,9 @@
 
 #include <f1x/aasdk/Messenger/Message.hpp>
 #include <f1x/aasdk/IO/Promise.hpp>
-
+#include <boost/asio/io_context.hpp>  // or strand.hpp if preferred
+namespace io = boost::asio;            // to define the io alias used
+{
 namespace f1x
 {
 namespace aasdk
@@ -30,6 +32,7 @@ namespace channel
 
 typedef io::Promise<void> SendPromise;
 
+}
 }
 }
 }

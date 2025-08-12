@@ -44,7 +44,7 @@ public:
 
 private:
     static ConfigDescriptorHandle getConfigDescriptor(IUSBWrapper& usbWrapper, DeviceHandle handle);
-    static const libusb_interface* getInterface(const ConfigDescriptorHandle& configDescriptorHandle);
+    static const libusb_interface* getInterface(ConfigDescriptorHandle  configDescriptorHandle);
     static const libusb_interface_descriptor* getInterfaceDescriptor(const libusb_interface* interface);
 
     IUSBWrapper& usbWrapper_;

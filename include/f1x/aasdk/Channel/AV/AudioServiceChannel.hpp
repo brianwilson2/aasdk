@@ -34,14 +34,14 @@ namespace av
 class AudioServiceChannel : public IAudioServiceChannel, public ServiceChannel, public std::enable_shared_from_this<AudioServiceChannel>
 {
 public:
-    AudioServiceChannel(boost::asio::strand<boost::asio::io_context::executor_type>& strand,
+    AudioServiceChannel(boost::asio::io_service::strand& strand,
                         messenger::IMessenger::Pointer messenger,
                         messenger::ChannelId channelId);
 
     void receive(IAudioServiceChannelEventHandler::Pointer eventHandler) override;
-    void sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, SendPromise::Pointer promise) override;
-    void sendAVChannelSetupResponse(const proto::messages::AVChannelSetupResponse& response, SendPromise::Pointer promise) override;
-    void sendAVMediaAckIndication(const proto::messages::AVMediaAckIndication& indication, SendPromise::Pointer promise) override;
+    void sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, messenger::SendPromise::Pointer promise) override;
+    void sendAVChannelSetupResponse(const proto::messages::AVChannelSetupResponse& response, messenger::SendPromise::Pointer promise) override;
+    void sendAVMediaAckIndication(const proto::messages::AVMediaAckIndication& indication, messenger::SendPromise::Pointer promise) override;
     messenger::ChannelId getId() const override;
 
 private:
@@ -54,7 +54,7 @@ private:
     void handleChannelOpenRequest(const common::DataConstBuffer& payload, IAudioServiceChannelEventHandler::Pointer eventHandler);
     void handleAVMediaWithTimestampIndication(const common::DataConstBuffer& payload, IAudioServiceChannelEventHandler::Pointer eventHandler);
 
-    boost::asio::strand<boost::asio::io_context::executor_type>& strand_;
+    boost::asio::io_service::strand& strand_;
     messenger::IMessenger::Pointer messenger_;
     messenger::ChannelId channelId_;
 };

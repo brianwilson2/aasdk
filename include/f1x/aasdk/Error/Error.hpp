@@ -40,9 +40,9 @@ public:
     const char* what() const noexcept override;
 
     bool operator!() const;
-    bool operator==(const Error& other) const;
-    bool operator==(const ErrorCode& code) const;
-    bool operator!=(const ErrorCode& code) const;
+    bool operator==(Error  other) const;
+    bool operator==(ErrorCode  code) const;
+    bool operator!=(ErrorCode  code) const;
 
 private:
     ErrorCode code_;

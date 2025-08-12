@@ -39,8 +39,8 @@ public:
     ITransport() = default;
     virtual ~ITransport() = default;
 
-    virtual void receive(size_t size, ReceivePromise::Pointer promise) = 0;
-    virtual void send(common::Data data, SendPromise::Pointer promise) = 0;
+    virtual void receive(size_t size, messenger::ReceivePromise::Pointer promise) = 0;
+    virtual void send(common::Data data, messenger::SendPromise::Pointer promise) = 0;
     virtual void stop() = 0;
 };
 

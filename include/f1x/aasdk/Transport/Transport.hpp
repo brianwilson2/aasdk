@@ -36,12 +36,12 @@ class Transport: public ITransport, public std::enable_shared_from_this<Transpor
 public:
     Transport(boost::asio::io_service& ioService);
 
-    void receive(size_t size, ReceivePromise::Pointer promise) override;
-    void send(common::Data data, SendPromise::Pointer promise) override;
+    void receive(size_t size, messenger::ReceivePromise::Pointer promise) override;
+    void send(common::Data data, messenger::SendPromise::Pointer promise) override;
 
 protected:
-    typedef std::list<std::pair<size_t, ReceivePromise::Pointer>> ReceiveQueue;
-    typedef std::list<std::pair<common::Data, SendPromise::Pointer>> SendQueue;
+    typedef std::list<std::pair<size_t, messenger::ReceivePromise::Pointer>> ReceiveQueue;
+    typedef std::list<std::pair<common::Data, messenger::SendPromise::Pointer>> SendQueue;
 
     using std::enable_shared_from_this<Transport>::shared_from_this;
     void receiveHandler(size_t bytesTransferred);

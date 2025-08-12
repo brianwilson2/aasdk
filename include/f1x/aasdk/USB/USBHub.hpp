@@ -44,7 +44,7 @@ private:
     typedef std::list<IAccessoryModeQueryChain::Pointer> QueryChainQueue;
     using std::enable_shared_from_this<USBHub>::shared_from_this;
     void handleDevice(libusb_device* device);
-    bool isAOAPDevice(const libusb_device_descriptor& deviceDescriptor) const;
+    bool isAOAPDevice(libusb_device_descriptor  deviceDescriptor) const;
     static int hotplugEventsHandler(libusb_context* usbContext, libusb_device* device, libusb_hotplug_event event, void* uerData);
 
     IUSBWrapper& usbWrapper_;

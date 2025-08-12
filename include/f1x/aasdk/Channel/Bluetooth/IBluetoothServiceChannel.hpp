@@ -43,8 +43,8 @@ public:
     virtual ~IBluetoothServiceChannel() = default;
 
     virtual void receive(IBluetoothServiceChannelEventHandler::Pointer eventHandler) = 0;
-    virtual void sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, SendPromise::Pointer promise) = 0;
-    virtual void sendBluetoothPairingResponse(const proto::messages::BluetoothPairingResponse& response, SendPromise::Pointer promise) = 0;
+    virtual void sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, messenger::SendPromise::Pointer promise) = 0;
+    virtual void sendBluetoothPairingResponse(const proto::messages::BluetoothPairingResponse& response, messenger::SendPromise::Pointer promise) = 0;
     virtual messenger::ChannelId getId() const = 0;
 };
 

@@ -39,15 +39,15 @@ public:
 
     void receive(IControlServiceChannelEventHandler::Pointer eventHandler) override;
 
-    void sendVersionRequest(SendPromise::Pointer promise) override;
-    void sendHandshake(common::Data handshakeBuffer, SendPromise::Pointer promise) override;
-    void sendAuthComplete(const proto::messages::AuthCompleteIndication& response, SendPromise::Pointer promise) override;
-    void sendServiceDiscoveryResponse(const proto::messages::ServiceDiscoveryResponse& response, SendPromise::Pointer promise) override;
-    void sendAudioFocusResponse(const proto::messages::AudioFocusResponse& response, SendPromise::Pointer promise) override;
-    void sendShutdownRequest(const proto::messages::ShutdownRequest& request, SendPromise::Pointer promise) override;
-    void sendShutdownResponse(const proto::messages::ShutdownResponse& response, SendPromise::Pointer promise) override;
-    void sendNavigationFocusResponse(const proto::messages::NavigationFocusResponse& respons, SendPromise::Pointer promisee) override;
-    void sendPingRequest(const proto::messages::PingRequest& request, SendPromise::Pointer promise) override;
+    void sendVersionRequest(messenger::SendPromise::Pointer promise) override;
+    void sendHandshake(common::Data handshakeBuffer, messenger::SendPromise::Pointer promise) override;
+    void sendAuthComplete(const proto::messages::AuthCompleteIndication& response, messenger::SendPromise::Pointer promise) override;
+    void sendServiceDiscoveryResponse(const proto::messages::ServiceDiscoveryResponse& response, messenger::SendPromise::Pointer promise) override;
+    void sendAudioFocusResponse(const proto::messages::AudioFocusResponse& response, messenger::SendPromise::Pointer promise) override;
+    void sendShutdownRequest(const proto::messages::ShutdownRequest& request, messenger::SendPromise::Pointer promise) override;
+    void sendShutdownResponse(const proto::messages::ShutdownResponse& response, messenger::SendPromise::Pointer promise) override;
+    void sendNavigationFocusResponse(const proto::messages::NavigationFocusResponse& respons, messenger::SendPromise::Pointer promisee) override;
+    void sendPingRequest(const proto::messages::PingRequest& request, messenger::SendPromise::Pointer promise) override;
 
 private:
     using std::enable_shared_from_this<ControlServiceChannel>::shared_from_this;

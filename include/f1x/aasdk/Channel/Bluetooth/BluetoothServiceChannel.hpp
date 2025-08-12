@@ -37,8 +37,8 @@ public:
 
     void receive(IBluetoothServiceChannelEventHandler::Pointer eventHandler) override;
     messenger::ChannelId getId() const override;
-    void sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, SendPromise::Pointer promise) override;
-    void sendBluetoothPairingResponse(const proto::messages::BluetoothPairingResponse& response, SendPromise::Pointer promise) override;
+    void sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, messenger::SendPromise::Pointer promise) override;
+    void sendBluetoothPairingResponse(const proto::messages::BluetoothPairingResponse& response, messenger::SendPromise::Pointer promise) override;
 
 private:
     using std::enable_shared_from_this<BluetoothServiceChannel>::shared_from_this;

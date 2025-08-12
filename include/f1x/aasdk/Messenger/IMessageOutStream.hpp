@@ -37,7 +37,7 @@ public:
     IMessageOutStream() = default;
     virtual ~IMessageOutStream() = default;
 
-    virtual void stream(Message::Pointer message, SendPromise::Pointer promise) = 0;
+    virtual void stream(Message::Pointer message, messenger::SendPromise::Pointer promise) = 0;
 };
 
 }

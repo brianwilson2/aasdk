@@ -41,7 +41,7 @@ struct DataBuffer
     DataBuffer(void* _data, Data::size_type _size, Data::size_type offset = 0);
     explicit DataBuffer(Data& _data, Data::size_type offset = 0);
     bool operator==(const std::nullptr_t&) const;
-    bool operator==(const DataBuffer& buffer) const;
+    bool operator==(DataBuffer  buffer) const;
 
     Data::value_type* data;
     Data::size_type size;
@@ -50,19 +50,19 @@ struct DataBuffer
 struct DataConstBuffer
 {
     DataConstBuffer();
-    explicit DataConstBuffer(const DataBuffer& other);
+    explicit DataConstBuffer(DataBuffer  other);
     DataConstBuffer(const Data::value_type* _data, Data::size_type _size, Data::size_type offset = 0);
     DataConstBuffer(const void* _data, Data::size_type _size, Data::size_type offset = 0);
-    explicit DataConstBuffer(const Data& _data, Data::size_type offset = 0);
+    explicit DataConstBuffer(Data  _data, Data::size_type offset = 0);
     bool operator==(const std::nullptr_t&) const;
-    bool operator==(const DataConstBuffer& buffer) const;
+    bool operator==(DataConstBuffer  buffer) const;
 
     const Data::value_type* cdata;
     Data::size_type size;
 };
 
 template<typename DataType>
-void copy(DataType& data, const DataBuffer& buffer)
+void copy(DataType& data, DataBuffer  buffer)
 {
     size_t offset = data.size();
     data.resize(data.size() + buffer.size);
@@ -70,17 +70,17 @@ void copy(DataType& data, const DataBuffer& buffer)
 }
 
 template<typename DataType>
-void copy(DataType& data, const DataConstBuffer& buffer)
+void copy(DataType& data, DataConstBuffer  buffer)
 {
     size_t offset = data.size();
     data.resize(data.size() + buffer.size);
     memcpy(&data[offset], buffer.cdata, buffer.size);
 }
 
-common::Data createData(const DataConstBuffer& buffer);
+common::Data createData(DataConstBuffer  buffer);
 
-std::string dump(const Data& data);
-std::string dump(const DataConstBuffer& buffer);
+std::string dump(Data  data);
+std::string dump(DataConstBuffer  buffer);
 
 }
 }
