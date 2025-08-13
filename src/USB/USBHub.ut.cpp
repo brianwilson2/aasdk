@@ -42,7 +42,7 @@ class USBHubUnitTest
 protected:
     USBHubUnitTest()
         : queryChain_(&queryChainMock_, [](auto*) {})) ;        , device_(reinterpret_cast<libusb_device*>(-1))
-        , deviceHandle_(reinterpret_cast<libusb_device_handle*>(&dummyDeviceHandle_), [](auto*) {})) ;        , promise_(IUSBHub::Promise::defer(ioService_))
+        , deviceHandle_(reinterpret_cast<libusb_device_handle*>(&dummyDeviceHandle_), [](auto*) {})) ;        , promise_(IUSBHub::Promise::defer(strand_))
         , rawHotplugCallbacHandle_(-1)
         , hotplugCallbackHandle_(&rawHotplugCallbacHandle_, [](auto*) {})) ;    {
         promise_->then(std::bind(&USBHubPromiseHandlerMock::onResolve, &promiseHandlerMock_, std::placeholders::_1),

@@ -51,13 +51,13 @@ void Messenger::enqueueReceive(ChannelId channelId, ReceivePromise::Pointer prom
 
             if(channelReceivePromiseQueue_.size() == 1)
             {
-                auto inStreamPromise = ReceivePromise::defer(receiveStrand_);
+                auto inStreamPromise = ReceivePromise::defer(receiveStrand_.get_executor().context());
                 inStreamPromise->then(std::bind(&Messenger::inStreamMessageHandler, this->shared_from_this(), std::placeholders::_1),
                                      std::bind(&Messenger::rejectReceivePromiseQueue, this->shared_from_this(), std::placeholders::_1));
                 messageInStream_->startReceive(std::move(inStreamPromise));
             }
         }
-    })) ;);
+    }));
 }
 
 
@@ -70,7 +70,7 @@ void Messenger::enqueueSend(Message::Pointer message, SendPromise::Pointer promi
         {
             this->doSend();
         }
-    })) ;);
+    });
 }
 
 void Messenger::inStreamMessageHandler(Message::Pointer message)
@@ -88,7 +88,7 @@ void Messenger::inStreamMessageHandler(Message::Pointer message)
 
     if(!channelReceivePromiseQueue_.empty())
     {
-        auto inStreamPromise = ReceivePromise::defer(receiveStrand_);
+        auto inStreamPromise = ReceivePromise::defer(receiveStrand_.get_executor().context());
         inStreamPromise->then(std::bind(&Messenger::inStreamMessageHandler, this->shared_from_this(), std::placeholders::_1),
                              std::bind(&Messenger::rejectReceivePromiseQueue, this->shared_from_this(), std::placeholders::_1));
         messageInStream_->startReceive(std::move(inStreamPromise));
@@ -138,7 +138,7 @@ void Messenger::stop()
 {
     boost::asio::dispatch(receiveStrand_,[this, self = this->shared_from_this()]() {
         channelReceiveMessageQueue_.clear();
-    })) ;);
+    });
 }
 
 }

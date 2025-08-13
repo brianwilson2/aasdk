@@ -41,7 +41,7 @@ class MessageOutStreamUnitTest
 {
 protected:
     MessageOutStreamUnitTest()
-        : transport_(&transportMock_, [](auto*) {})) ;        , cryptor_(&cryptorMock_, [](auto*) {})) ;        , sendPromise_(SendPromise::defer(ioService_))
+        : transport_(&transportMock_, [](auto*) {})) ;        , cryptor_(&cryptorMock_, [](auto*) {})) ;        , sendPromise_(SendPromise::defer(strand_))
     {
         sendPromise_->then(std::bind(&SendPromiseHandlerMock::onResolve, &sendPromiseHandlerMock_),
                           std::bind(&SendPromiseHandlerMock::onReject, &sendPromiseHandlerMock_, std::placeholders::_1));
@@ -202,7 +202,7 @@ BOOST_FIXTURE_TEST_CASE(MessageOutStream_SendSplittedMessage, MessageOutStreamUn
     expectedData2.insert(expectedData2.end(), frame2Payload.begin(), frame2Payload.end());
     EXPECT_CALL(transportMock_, send(expectedData2, _)).WillOnce(SaveArg<1>(&transportSendPromise));
 
-    auto secondSendPromise = SendPromise::defer(ioService_);
+    auto secondSendPromise = SendPromise::defer(strand_);
     SendPromiseHandlerMock secondSendPromiseHandlerMock;
     secondSendPromise->then(std::bind(&SendPromiseHandlerMock::onResolve, &secondSendPromiseHandlerMock),
                            std::bind(&SendPromiseHandlerMock::onReject, &secondSendPromiseHandlerMock, std::placeholders::_1));

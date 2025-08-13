@@ -1,0 +1,161 @@
+src/USB/AccessoryModeStartQuery.cpp:                auto usbEndpointPromise = IUSBEndpoint::Promise::defer(strand_);
+src/USB/AccessoryModeQueryChain.cpp:    auto queryPromise = IAccessoryModeQuery::Promise::defer(strand_);
+src/USB/AccessoryModeQueryChain.cpp:    auto queryPromise = IAccessoryModeQuery::Promise::defer(strand_);
+src/USB/AccessoryModeQueryChain.cpp:    auto queryPromise = IAccessoryModeQuery::Promise::defer(strand_);
+src/USB/AccessoryModeQueryChain.cpp:    auto queryPromise = IAccessoryModeQuery::Promise::defer(strand_);
+src/USB/AccessoryModeQueryChain.cpp:    auto queryPromise = IAccessoryModeQuery::Promise::defer(strand_);
+src/USB/AccessoryModeQueryChain.cpp:    auto queryPromise = IAccessoryModeQuery::Promise::defer(strand_);
+src/USB/AccessoryModeQueryChain.cpp:    auto queryPromise = IAccessoryModeQuery::Promise::defer(strand_);
+src/USB/AccessoryModeQueryChain.cpp:    auto queryPromise = IAccessoryModeQuery::Promise::defer(strand_);
+src/USB/AccessoryModeSendStringQuery.ut.cpp:      , usbEndpoint_(usbEndpointMock_.get(), [](auto*) {})) ;      , promise_(IAccessoryModeQuery::Promise::defer(ioService_))
+src/USB/AccessoryModeSendStringQuery.ut.cpp:    auto secondPromise = IAccessoryModeQuery::Promise::defer(ioService_);
+src/USB/ConnectedAccessoriesEnumerator.cpp.bak:        auto queryChainPromise = IAccessoryModeQueryChain::Promise::defer(strand_);
+src/USB/AccessoryModeProtocolVersionQuery.cpp:                    auto usbEndpointPromise = IUSBEndpoint::Promise::defer(strand_);
+src/USB/ConnectedAccessoriesEnumerator.cpp:        auto queryChainPromise = IAccessoryModeQueryChain::Promise::defer(strand_);
+src/USB/AccessoryModeProtocolVersionQuery.ut.cpp.bak:      , usbEndpoint_(usbEndpointMock_.get(), [](auto*) {})) ;      , promise_(IAccessoryModeQuery::Promise::defer(ioService_))
+src/USB/AccessoryModeProtocolVersionQuery.ut.cpp.bak:    auto secondPromise = IAccessoryModeQuery::Promise::defer(ioService_);
+src/USB/USBEndpoint.ut.cpp:      : deviceHandle_(reinterpret_cast<libusb_device_handle*>(&dummyDeviceHandle_), [](auto*) {})) ;      , promise_(IUSBEndpoint::Promise::defer(ioService_))
+src/USB/USBEndpoint.ut.cpp:        auto promise = IUSBEndpoint::Promise::defer(ioService_);
+src/USB/USBEndpoint.ut.cpp.bak:      : deviceHandle_(reinterpret_cast<libusb_device_handle*>(&dummyDeviceHandle_), [](auto*) {})) ;      , promise_(IUSBEndpoint::Promise::defer(ioService_))
+src/USB/USBEndpoint.ut.cpp.bak:        auto promise = IUSBEndpoint::Promise::defer(ioService_);
+src/USB/AccessoryModeQueryChain.ut.cpp.bak:        , promise_(IAccessoryModeQueryChain::Promise::defer(ioService_))
+src/USB/AccessoryModeQueryChain.ut.cpp.bak:    auto secondPromise = IAccessoryModeQueryChain::Promise::defer(ioService_);
+src/USB/AccessoryModeSendStringQuery.cpp:                auto usbEndpointPromise = IUSBEndpoint::Promise::defer(strand_);
+src/USB/AccessoryModeProtocolVersionQuery.ut.cpp:      , usbEndpoint_(usbEndpointMock_.get(), [](auto*) {})) ;      , promise_(IAccessoryModeQuery::Promise::defer(ioService_))
+src/USB/AccessoryModeProtocolVersionQuery.ut.cpp:    auto secondPromise = IAccessoryModeQuery::Promise::defer(ioService_);
+src/USB/USBHub.ut.cpp.bak:        , deviceHandle_(reinterpret_cast<libusb_device_handle*>(&dummyDeviceHandle_), [](auto*) {})) ;        , promise_(IUSBHub::Promise::defer(ioService_))
+src/USB/USBHub.ut.cpp:        , deviceHandle_(reinterpret_cast<libusb_device_handle*>(&dummyDeviceHandle_), [](auto*) {})) ;        , promise_(IUSBHub::Promise::defer(ioService_))
+src/USB/USBHub.cpp.bak:        auto queryChainPromise = IAccessoryModeQueryChain::Promise::defer(strand_);
+src/USB/AccessoryModeQueryChain.ut.cpp:        , promise_(IAccessoryModeQueryChain::Promise::defer(ioService_))
+src/USB/AccessoryModeQueryChain.ut.cpp:    auto secondPromise = IAccessoryModeQueryChain::Promise::defer(ioService_);
+src/USB/ConnectedAccessoriesEnumerator.ut.cpp.bak:        , deviceHandle_(reinterpret_cast<libusb_device_handle*>(&dummyDeviceHandle_), [](auto*) {})) ;        , promise_(IConnectedAccessoriesEnumerator::Promise::defer(ioService_))
+src/USB/AccessoryModeProtocolVersionQuery.cpp.bak:                    auto usbEndpointPromise = IUSBEndpoint::Promise::defer(strand_);
+src/USB/AccessoryModeQueryChain.cpp.bak:            auto queryPromise = IAccessoryModeQuery::Promise::defer(strand_);
+src/USB/AccessoryModeQueryChain.cpp.bak:    auto queryPromise = IAccessoryModeQuery::Promise::defer(strand_);
+src/USB/AccessoryModeQueryChain.cpp.bak:    auto queryPromise = IAccessoryModeQuery::Promise::defer(strand_);
+src/USB/AccessoryModeQueryChain.cpp.bak:    auto queryPromise = IAccessoryModeQuery::Promise::defer(strand_);
+src/USB/AccessoryModeQueryChain.cpp.bak:    auto queryPromise = IAccessoryModeQuery::Promise::defer(strand_);
+src/USB/AccessoryModeQueryChain.cpp.bak:    auto queryPromise = IAccessoryModeQuery::Promise::defer(strand_);
+src/USB/AccessoryModeQueryChain.cpp.bak:    auto queryPromise = IAccessoryModeQuery::Promise::defer(strand_);
+src/USB/AccessoryModeQueryChain.cpp.bak:    auto queryPromise = IAccessoryModeQuery::Promise::defer(strand_);
+src/USB/AccessoryModeSendStringQuery.ut.cpp.bak:      , usbEndpoint_(usbEndpointMock_.get(), [](auto*) {})) ;      , promise_(IAccessoryModeQuery::Promise::defer(ioService_))
+src/USB/AccessoryModeSendStringQuery.ut.cpp.bak:    auto secondPromise = IAccessoryModeQuery::Promise::defer(ioService_);
+src/USB/AccessoryModeStartQuery.ut.cpp.bak:      , usbEndpoint_(usbEndpointMock_.get(), [](auto*) {})) ;      , promise_(IAccessoryModeQuery::Promise::defer(ioService_))
+src/USB/AccessoryModeStartQuery.ut.cpp.bak:    auto secondPromise = IAccessoryModeQuery::Promise::defer(ioService_);
+src/USB/ConnectedAccessoriesEnumerator.ut.cpp:        , deviceHandle_(reinterpret_cast<libusb_device_handle*>(&dummyDeviceHandle_), [](auto*) {})) ;        , promise_(IConnectedAccessoriesEnumerator::Promise::defer(ioService_))
+src/USB/AccessoryModeStartQuery.cpp.bak:                    auto usbEndpointPromise = IUSBEndpoint::Promise::defer(strand_);
+src/USB/USBHub.cpp:        auto queryChainPromise = IAccessoryModeQueryChain::Promise::defer(strand_);
+src/USB/AccessoryModeStartQuery.ut.cpp:      , usbEndpoint_(usbEndpointMock_.get(), [](auto*) {})) ;      , promise_(IAccessoryModeQuery::Promise::defer(ioService_))
+src/USB/AccessoryModeStartQuery.ut.cpp:    auto secondPromise = IAccessoryModeQuery::Promise::defer(ioService_);
+src/Transport/TCPTransport.ut.cpp:        : receivePromise_(ITransport::ReceivePromise::defer(ioService_))
+src/Transport/TCPTransport.ut.cpp:        , sendPromise_(ITransport::SendPromise::defer(ioService_))
+src/Transport/TCPTransport.ut.cpp:    auto secondPromise = ITransport::ReceivePromise::defer(ioService_);
+src/Transport/TCPTransport.ut.cpp:    auto secondPromise = ITransport::ReceivePromise::defer(ioService_);
+src/Transport/TCPTransport.ut.cpp:    auto secondSendPromise = ITransport::SendPromise::defer(ioService_);
+src/Transport/TCPTransport.ut.cpp:    auto secondSendPromise = ITransport::SendPromise::defer(ioService_);
+src/Transport/USBTransport.ut.cpp.bak:        : receivePromise_(ITransport::ReceivePromise::defer(ioService_))
+src/Transport/USBTransport.ut.cpp.bak:        , sendPromise_(ITransport::SendPromise::defer(ioService_))
+src/Transport/USBTransport.ut.cpp.bak:    auto secondPromise = ITransport::ReceivePromise::defer(ioService_);
+src/Transport/USBTransport.ut.cpp.bak:    auto secondPromise = ITransport::ReceivePromise::defer(ioService_);
+src/Transport/USBTransport.ut.cpp.bak:    auto secondSendPromise = ITransport::SendPromise::defer(ioService_);
+src/Transport/USBTransport.ut.cpp.bak:    auto secondSendPromise = ITransport::SendPromise::defer(ioService_);
+src/Transport/TCPTransport.ut.cpp.bak:        : receivePromise_(ITransport::ReceivePromise::defer(ioService_))
+src/Transport/TCPTransport.ut.cpp.bak:        , sendPromise_(ITransport::SendPromise::defer(ioService_))
+src/Transport/TCPTransport.ut.cpp.bak:    auto secondPromise = ITransport::ReceivePromise::defer(ioService_);
+src/Transport/TCPTransport.ut.cpp.bak:    auto secondPromise = ITransport::ReceivePromise::defer(ioService_);
+src/Transport/TCPTransport.ut.cpp.bak:    auto secondSendPromise = ITransport::SendPromise::defer(ioService_);
+src/Transport/TCPTransport.ut.cpp.bak:    auto secondSendPromise = ITransport::SendPromise::defer(ioService_);
+src/Transport/TCPTransport.cpp:    auto receivePromise = tcp::ITCPEndpoint::Promise::defer(receiveStrand_);
+src/Transport/TCPTransport.cpp:    auto sendPromise = tcp::ITCPEndpoint::Promise::defer(sendStrand_);
+src/Transport/USBTransport.cpp:    auto usbEndpointPromise = usb::IUSBEndpoint::Promise::defer(receiveStrand_);
+src/Transport/USBTransport.cpp:    auto usbEndpointPromise = usb::IUSBEndpoint::Promise::defer(sendStrand_);
+src/Transport/USBTransport.ut.cpp:        : receivePromise_(ITransport::ReceivePromise::defer(ioService_))
+src/Transport/USBTransport.ut.cpp:        , sendPromise_(ITransport::SendPromise::defer(ioService_))
+src/Transport/USBTransport.ut.cpp:    auto secondPromise = ITransport::ReceivePromise::defer(ioService_);
+src/Transport/USBTransport.ut.cpp:    auto secondPromise = ITransport::ReceivePromise::defer(ioService_);
+src/Transport/USBTransport.ut.cpp:    auto secondSendPromise = ITransport::SendPromise::defer(ioService_);
+src/Transport/USBTransport.ut.cpp:    auto secondSendPromise = ITransport::SendPromise::defer(ioService_);
+src/Transport/TCPTransport.cpp.bak:    auto receivePromise = tcp::ITCPEndpoint::Promise::defer(receiveStrand_);
+src/Transport/TCPTransport.cpp.bak:    auto sendPromise = tcp::ITCPEndpoint::Promise::defer(sendStrand_);
+src/Transport/USBTransport.cpp.bak:    auto usbEndpointPromise = usb::IUSBEndpoint::Promise::defer(receiveStrand_);
+src/Transport/USBTransport.cpp.bak:    auto usbEndpointPromise = usb::IUSBEndpoint::Promise::defer(sendStrand_);
+src/Channel/ServiceChannel.cpp.bak:    auto sendPromise = messenger::SendPromise::defer(strand_);
+src/Channel/Input/InputServiceChannel.cpp.bak:    auto receivePromise = messenger::ReceivePromise::defer(strand_);
+src/Channel/Input/InputServiceChannel.cpp:    auto receivePromise = messenger::ReceivePromise::defer(strand_);
+src/Channel/Sensor/SensorServiceChannel.cpp:    auto receivePromise = messenger::ReceivePromise::defer(strand_);
+src/Channel/Sensor/SensorServiceChannel.cpp.bak:    auto receivePromise = messenger::ReceivePromise::defer(strand_);
+src/Channel/ServiceChannel.cpp:    auto sendPromise = messenger::SendPromise::defer(strand_);
+src/Channel/Bluetooth/BluetoothServiceChannel.cpp.bak:    auto receivePromise = messenger::ReceivePromise::defer(strand_);
+src/Channel/Bluetooth/BluetoothServiceChannel.cpp:    auto receivePromise = messenger::ReceivePromise::defer(strand_);
+src/Channel/Control/ControlServiceChannel.cpp.bak:    auto receivePromise  = messenger::ReceivePromise::defer(strand_);
+src/Channel/Control/ControlServiceChannel.cpp:    auto receivePromise  = messenger::ReceivePromise::defer(strand_);
+src/Channel/AV/AVInputServiceChannel.cpp.bak:    auto receivePromise = messenger::ReceivePromise::defer(strand_);
+src/Channel/AV/VideoServiceChannel.cpp.bak:    auto receivePromise = messenger::ReceivePromise::defer(strand_);
+src/Channel/AV/VideoServiceChannel.cpp:    auto receivePromise = messenger::ReceivePromise::defer(strand_);
+src/Channel/AV/AudioServiceChannel.cpp:    auto receivePromise = messenger::ReceivePromise::defer(strand_);
+src/Channel/AV/AVInputServiceChannel.cpp:    auto receivePromise = messenger::ReceivePromise::defer(strand_);
+src/Channel/AV/AudioServiceChannel.cpp.bak:    auto receivePromise = messenger::ReceivePromise::defer(strand_);
+src/Messenger/MessageOutStream.ut.cpp:        : transport_(&transportMock_, [](auto*) {})) ;        , cryptor_(&cryptorMock_, [](auto*) {})) ;        , sendPromise_(SendPromise::defer(ioService_))
+src/Messenger/MessageOutStream.ut.cpp:    auto secondSendPromise = SendPromise::defer(ioService_);
+src/Messenger/Messenger.cpp:                auto inStreamPromise = ReceivePromise::defer(receiveStrand_);
+src/Messenger/Messenger.cpp:        auto inStreamPromise = ReceivePromise::defer(receiveStrand_);
+src/Messenger/Messenger.cpp:    auto outStreamPromise = SendPromise::defer(sendStrand_);
+src/Messenger/MessageInStream.cpp:                auto transportPromise = transport::ITransport::ReceivePromise::defer(strand_);
+src/Messenger/MessageInStream.cpp:    auto transportPromise = transport::ITransport::ReceivePromise::defer(strand_);
+src/Messenger/MessageInStream.cpp:    auto transportPromise = transport::ITransport::ReceivePromise::defer(strand_);
+src/Messenger/MessageInStream.cpp:        auto transportPromise = transport::ITransport::ReceivePromise::defer(strand_);
+src/Messenger/Messenger.cpp.bak:                auto inStreamPromise = ReceivePromise::defer(receiveStrand_);
+src/Messenger/Messenger.cpp.bak:        auto inStreamPromise = ReceivePromise::defer(receiveStrand_);
+src/Messenger/Messenger.cpp.bak:    auto outStreamPromise = SendPromise::defer(sendStrand_);
+src/Messenger/Messenger.ut.cpp:        : messageInStream_(&messageInStreamMock_, [](auto*) {})) ;        , messageOutStream_(&messageOutStreamMock_, [](auto*) {})) ;        , receivePromise_(ReceivePromise::defer(ioService_))
+src/Messenger/Messenger.ut.cpp:        , sendPromise_(SendPromise::defer(ioService_))
+src/Messenger/Messenger.ut.cpp:    auto secondReceivePromise = ReceivePromise::defer(ioService_);
+src/Messenger/Messenger.ut.cpp:    auto secondReceivePromise = ReceivePromise::defer(ioService_);
+src/Messenger/Messenger.ut.cpp:    auto secondSendPromise = SendPromise::defer(ioService_);
+src/Messenger/Messenger.ut.cpp:    auto secondSendPromise = SendPromise::defer(ioService_);
+src/Messenger/MessageOutStream.cpp:                auto transportPromise = transport::ITransport::SendPromise::defer(strand_);
+src/Messenger/MessageOutStream.cpp:        auto transportPromise = transport::ITransport::SendPromise::defer(strand_);
+src/Messenger/Messenger.ut.cpp.bak:        : messageInStream_(&messageInStreamMock_, [](auto*) {})) ;        , messageOutStream_(&messageOutStreamMock_, [](auto*) {})) ;        , receivePromise_(ReceivePromise::defer(ioService_))
+src/Messenger/Messenger.ut.cpp.bak:        , sendPromise_(SendPromise::defer(ioService_))
+src/Messenger/Messenger.ut.cpp.bak:    auto secondReceivePromise = ReceivePromise::defer(ioService_);
+src/Messenger/Messenger.ut.cpp.bak:    auto secondReceivePromise = ReceivePromise::defer(ioService_);
+src/Messenger/Messenger.ut.cpp.bak:    auto secondSendPromise = SendPromise::defer(ioService_);
+src/Messenger/Messenger.ut.cpp.bak:    auto secondSendPromise = SendPromise::defer(ioService_);
+src/Messenger/MessageInStream.ut.cpp.bak:        : transport_(&transportMock_, [](auto*) {})) ;        , cryptor_(&cryptorMock_, [](auto*) {})) ;        , receivePromise_(ReceivePromise::defer(ioService_))
+src/Messenger/MessageInStream.ut.cpp.bak:    auto secondReceivePromise = ReceivePromise::defer(ioService_);
+src/Messenger/MessageOutStream.ut.cpp.bak:        : transport_(&transportMock_, [](auto*) {})) ;        , cryptor_(&cryptorMock_, [](auto*) {})) ;        , sendPromise_(SendPromise::defer(ioService_))
+src/Messenger/MessageOutStream.ut.cpp.bak:    auto secondSendPromise = SendPromise::defer(ioService_);
+src/Messenger/MessageInStream.cpp.bak:                auto transportPromise = transport::ITransport::ReceivePromise::defer(strand_);
+src/Messenger/MessageInStream.cpp.bak:    auto transportPromise = transport::ITransport::ReceivePromise::defer(strand_);
+src/Messenger/MessageInStream.cpp.bak:    auto transportPromise = transport::ITransport::ReceivePromise::defer(strand_);
+src/Messenger/MessageInStream.cpp.bak:        auto transportPromise = transport::ITransport::ReceivePromise::defer(strand_);
+src/Messenger/MessageOutStream.cpp.bak:                auto transportPromise = transport::ITransport::SendPromise::defer(strand_);
+src/Messenger/MessageOutStream.cpp.bak:        auto transportPromise = transport::ITransport::SendPromise::defer(strand_);
+src/Messenger/MessageInStream.ut.cpp:        : transport_(&transportMock_, [](auto*) {})) ;        , cryptor_(&cryptorMock_, [](auto*) {})) ;        , receivePromise_(ReceivePromise::defer(ioService_))
+src/Messenger/MessageInStream.ut.cpp:    auto secondReceivePromise = ReceivePromise::defer(ioService_);
+src/TCP/TCPEndpoint.ut.cpp:        , promise_(ITCPEndpoint::Promise::defer(ioService_))
+src/TCP/TCPEndpoint.ut.cpp.bak:        , promise_(ITCPEndpoint::Promise::defer(ioService_))
+include/f1x/aasdk/IO/Promise.hpp:    Promise(boost::asio::io_context& ioService)
+include/f1x/aasdk/IO/Promise.hpp:    Promise(boost::asio::strand<boost::asio::io_context::executor_type>& strand)
+include/f1x/aasdk/IO/Promise.hpp:    Promise(boost::asio::io_context& ioService)
+include/f1x/aasdk/IO/Promise.hpp:    Promise(boost::asio::strand<boost::asio::io_context::executor_type>& strand)
+include/f1x/aasdk/IO/Promise.hpp:    Promise(boost::asio::io_context& ioService)
+include/f1x/aasdk/IO/Promise.hpp:    Promise(boost::asio::strand<boost::asio::io_context::executor_type>& strand)
+include/f1x/aasdk/IO/Promise.hpp:    Promise(boost::asio::io_context& ioService)
+include/f1x/aasdk/IO/Promise.hpp:    Promise(boost::asio::strand<boost::asio::io_context::executor_type>& strand)
+include/f1x/aasdk/IO/Promise.hpp.bak:    Promise(boost::asio::io_context& ioService)
+include/f1x/aasdk/IO/Promise.hpp.bak:    Promise(boost::asio::strand<boost::asio::io_context::executor_type>& strand)
+include/f1x/aasdk/IO/Promise.hpp.bak:    Promise(boost::asio::io_context& ioService)
+include/f1x/aasdk/IO/Promise.hpp.bak:    Promise(boost::asio::strand<boost::asio::io_context::executor_type>& strand)
+include/f1x/aasdk/IO/Promise.hpp.bak:    Promise(boost::asio::io_context& ioService)
+include/f1x/aasdk/IO/Promise.hpp.bak:    Promise(boost::asio::strand<boost::asio::io_context::executor_type>& strand)
+include/f1x/aasdk/IO/Promise.hpp.bak:    Promise(boost::asio::io_context& ioService)
+include/f1x/aasdk/IO/Promise.hpp.bak:    Promise(boost::asio::strand<boost::asio::io_context::executor_type>& strand)
+include/f1x/aasdk/IO/oldPromise.hpp:    Promise(boost::asio::io_service& ioService)
+include/f1x/aasdk/IO/oldPromise.hpp:    Promise(boost::asio::io_service::strand& strand)
+include/f1x/aasdk/IO/oldPromise.hpp:    Promise(boost::asio::io_service& ioService)
+include/f1x/aasdk/IO/oldPromise.hpp:    Promise(boost::asio::io_service::strand& strand)
+include/f1x/aasdk/IO/oldPromise.hpp:    Promise(boost::asio::io_service& ioService)
+include/f1x/aasdk/IO/oldPromise.hpp:    Promise(boost::asio::io_service::strand& strand)
+include/f1x/aasdk/IO/oldPromise.hpp:    Promise(boost::asio::io_service& ioService)
+include/f1x/aasdk/IO/oldPromise.hpp:    Promise(boost::asio::io_service::strand& strand)

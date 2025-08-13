@@ -1,5 +1,10 @@
 # Add any directories, files, or patterns you don't want to be tracked by version control
 lib/
 bin/
+<<<<<<< HEAD
 CMakeLists.txt.userbuild/
 build/
+=======
+CMakeLists.txt.user
+include/f1x/aasdk/IO/oldPromise.hpp
+>>>>>>> bfbef1ab2571fee46a5da009fe9a222305e39a0a

@@ -38,7 +38,7 @@ class TCPEndpointUnitTest
 protected:
     TCPEndpointUnitTest()
         : socket_(std::make_shared<boost::asio::ip::tcp::socket>(ioService_))
-        , promise_(ITCPEndpoint::Promise::defer(ioService_))
+        , promise_(ITCPEndpoint::Promise::defer(strand_))
     {
         promise_->then(std::bind(&TCPEndpointPromiseHandlerMock::onResolve, &promiseHandlerMock_, std::placeholders::_1),
                        std::bind(&TCPEndpointPromiseHandlerMock::onReject, &promiseHandlerMock_, std::placeholders::_1));

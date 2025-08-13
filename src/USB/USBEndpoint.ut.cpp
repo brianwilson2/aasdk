@@ -40,7 +40,7 @@ class USBEndpointUnitTest
 {
 protected:
     USBEndpointUnitTest()
-      : deviceHandle_(reinterpret_cast<libusb_device_handle*>(&dummyDeviceHandle_), [](auto*) {})) ;      , promise_(IUSBEndpoint::Promise::defer(ioService_))
+      : deviceHandle_(reinterpret_cast<libusb_device_handle*>(&dummyDeviceHandle_), [](auto*) {})) ;      , promise_(IUSBEndpoint::Promise::defer(strand_))
     {
         promise_->then(std::bind(&USBEndpointPromiseHandlerMock::onResolve, &promiseHandlerMock_, std::placeholders::_1),
                       std::bind(&USBEndpointPromiseHandlerMock::onReject, &promiseHandlerMock_, std::placeholders::_1));
@@ -185,7 +185,7 @@ BOOST_FIXTURE_TEST_CASE(USBEndpoint_MultipleBulkTransfers, USBEndpointUnitTest)
         transfer.actual_length = 0;
         transfer.status = LIBUSB_TRANSFER_ERROR;
 
-        auto promise = IUSBEndpoint::Promise::defer(ioService_);
+        auto promise = IUSBEndpoint::Promise::defer(strand_);
         promise->then(std::bind(&USBEndpointPromiseHandlerMock::onResolve, &promiseHandlerMock_, std::placeholders::_1),
                       std::bind(&USBEndpointPromiseHandlerMock::onReject, &promiseHandlerMock_, std::placeholders::_1));
 

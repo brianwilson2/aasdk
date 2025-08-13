@@ -40,7 +40,7 @@ class AccessoryModeStartQueryUnitTest
 protected:
     AccessoryModeStartQueryUnitTest()
       : usbEndpointMock_(std::make_shared<USBEndpointMock>())
-      , usbEndpoint_(usbEndpointMock_.get(), [](auto*) {})) ;      , promise_(IAccessoryModeQuery::Promise::defer(ioService_))
+      , usbEndpoint_(usbEndpointMock_.get(), [](auto*) {})) ;      , promise_(IAccessoryModeQuery::Promise::defer(strand_))
     {
         promise_->then(std::bind(&AccessoryModeQueryPromiseHandlerMock::onResolve, &promiseHandlerMock_, std::placeholders::_1),
                       std::bind(&AccessoryModeQueryPromiseHandlerMock::onReject, &promiseHandlerMock_, std::placeholders::_1));
@@ -109,7 +109,7 @@ BOOST_FIXTURE_TEST_CASE(AccessoryModeStartQuery_RejectWhenInProgress, AccessoryM
     ioService_.reset();
 
     AccessoryModeQueryPromiseHandlerMock secondPromiseHandlerMock;
-    auto secondPromise = IAccessoryModeQuery::Promise::defer(ioService_);
+    auto secondPromise = IAccessoryModeQuery::Promise::defer(strand_);
     secondPromise->then(std::bind(&AccessoryModeQueryPromiseHandlerMock::onResolve, &secondPromiseHandlerMock, std::placeholders::_1),
                        std::bind(&AccessoryModeQueryPromiseHandlerMock::onReject, &secondPromiseHandlerMock, std::placeholders::_1));
 

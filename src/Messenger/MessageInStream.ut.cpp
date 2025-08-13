@@ -41,7 +41,7 @@ class MessageInStreamUnitTest
 {
 protected:
     MessageInStreamUnitTest()
-        : transport_(&transportMock_, [](auto*) {})) ;        , cryptor_(&cryptorMock_, [](auto*) {})) ;        , receivePromise_(ReceivePromise::defer(ioService_))
+        : transport_(&transportMock_, [](auto*) {})) ;        , cryptor_(&cryptorMock_, [](auto*) {})) ;        , receivePromise_(ReceivePromise::defer(strand_))
     {
         receivePromise_->then(std::bind(&ReceivePromiseHandlerMock::onResolve, &receivePromiseHandlerMock_, std::placeholders::_1),
                              std::bind(&ReceivePromiseHandlerMock::onReject, &receivePromiseHandlerMock_, std::placeholders::_1));
@@ -404,7 +404,7 @@ BOOST_FIXTURE_TEST_CASE(MessageInStream_RejectWhenInProgress, MessageInStreamUni
     messageInStream->startReceive(std::move(receivePromise_));
 
     ReceivePromiseHandlerMock secondReceivePromiseHandlerMock;
-    auto secondReceivePromise = ReceivePromise::defer(ioService_);
+    auto secondReceivePromise = ReceivePromise::defer(strand_);
 
     secondReceivePromise->then(std::bind(&ReceivePromiseHandlerMock::onResolve, &secondReceivePromiseHandlerMock, std::placeholders::_1),
                               std::bind(&ReceivePromiseHandlerMock::onReject, &secondReceivePromiseHandlerMock, std::placeholders::_1));

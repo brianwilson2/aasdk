@@ -40,8 +40,8 @@ class TCPTransportUnitTest
 {
 protected:
     TCPTransportUnitTest()
-        : receivePromise_(ITransport::ReceivePromise::defer(ioService_))
-        , sendPromise_(ITransport::SendPromise::defer(ioService_))
+        : receivePromise_(ITransport::ReceivePromise::defer(strand_))
+        , sendPromise_(ITransport::SendPromise::defer(strand_))
         , tcpEndpoint_(&tcpEndpointMock_, [](auto*) {})) ;    {
         receivePromise_->then(std::bind(&TransportReceivePromiseHandlerMock::onResolve, &receivePromiseHandlerMock_, std::placeholders::_1),
                               std::bind(&TransportReceivePromiseHandlerMock::onReject, &receivePromiseHandlerMock_, std::placeholders::_1));
@@ -131,7 +131,7 @@ BOOST_FIXTURE_TEST_CASE(TCPTransport_OnlyOneReceiveAtATime, TCPTransportUnitTest
     std::fill(dataBuffer.data, dataBuffer.data + stepSize, 0x5E);
     std::fill(dataBuffer.data + stepSize, dataBuffer.data + receiveSize, 0x5F);
 
-    auto secondPromise = ITransport::ReceivePromise::defer(ioService_);
+    auto secondPromise = ITransport::ReceivePromise::defer(strand_);
     TransportReceivePromiseHandlerMock secondPromiseHandlerMock;
     secondPromise->then(std::bind(&TransportReceivePromiseHandlerMock::onResolve, &secondPromiseHandlerMock, std::placeholders::_1),
                        std::bind(&TransportReceivePromiseHandlerMock::onReject, &secondPromiseHandlerMock, std::placeholders::_1));
@@ -160,7 +160,7 @@ BOOST_FIXTURE_TEST_CASE(TCPTransport_ReceiveError, TCPTransportUnitTest)
     auto transport(std::make_shared<TCPTransport>(ioService_, tcpEndpoint_));
     transport->receive(1000, std::move(receivePromise_));
 
-    auto secondPromise = ITransport::ReceivePromise::defer(ioService_);
+    auto secondPromise = ITransport::ReceivePromise::defer(strand_);
     secondPromise->then(std::bind(&TransportReceivePromiseHandlerMock::onResolve, &receivePromiseHandlerMock_, std::placeholders::_1),
                        std::bind(&TransportReceivePromiseHandlerMock::onReject, &receivePromiseHandlerMock_, std::placeholders::_1));
 
@@ -211,7 +211,7 @@ BOOST_FIXTURE_TEST_CASE(TCPTransport_OnlyOneSendAtATime, TCPTransportUnitTest)
 
     const common::Data expectedData2(3000, 0x5F);
 
-    auto secondSendPromise = ITransport::SendPromise::defer(ioService_);
+    auto secondSendPromise = ITransport::SendPromise::defer(strand_);
     TransportSendPromiseHandlerMock secondSendPromiseHandlerMock;
     secondSendPromise->then(std::bind(&TransportSendPromiseHandlerMock::onResolve, &secondSendPromiseHandlerMock),
                            std::bind(&TransportSendPromiseHandlerMock::onReject, &secondSendPromiseHandlerMock, std::placeholders::_1));
@@ -249,7 +249,7 @@ BOOST_FIXTURE_TEST_CASE(TCPTransport_SendError, TCPTransportUnitTest)
     ioService_.run();
     ioService_.reset();
 
-    auto secondSendPromise = ITransport::SendPromise::defer(ioService_);
+    auto secondSendPromise = ITransport::SendPromise::defer(strand_);
     TransportSendPromiseHandlerMock secondSendPromiseHandlerMock;
     secondSendPromise->then(std::bind(&TransportSendPromiseHandlerMock::onResolve, &secondSendPromiseHandlerMock),
                            std::bind(&TransportSendPromiseHandlerMock::onReject, &secondSendPromiseHandlerMock, std::placeholders::_1));

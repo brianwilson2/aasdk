@@ -40,8 +40,8 @@ class MessengerUnitTest
 {
 protected:
     MessengerUnitTest()
-        : messageInStream_(&messageInStreamMock_, [](auto*) {})) ;        , messageOutStream_(&messageOutStreamMock_, [](auto*) {})) ;        , receivePromise_(ReceivePromise::defer(ioService_))
-        , sendPromise_(SendPromise::defer(ioService_))
+        : messageInStream_(&messageInStreamMock_, [](auto*) {})) ;        , messageOutStream_(&messageOutStreamMock_, [](auto*) {})) ;        , receivePromise_(ReceivePromise::defer(strand_))
+        , sendPromise_(SendPromise::defer(strand_))
     {
         receivePromise_->then(std::bind(&ReceivePromiseHandlerMock::onResolve, &receivePromiseHandlerMock_, std::placeholders::_1),
                              std::bind(&ReceivePromiseHandlerMock::onReject, &receivePromiseHandlerMock_, std::placeholders::_1));
@@ -97,7 +97,7 @@ BOOST_FIXTURE_TEST_CASE(Messenger_DirectReceive, MessengerUnitTest)
     ioService_.run();
     ioService_.reset();
 
-    auto secondReceivePromise = ReceivePromise::defer(ioService_);
+    auto secondReceivePromise = ReceivePromise::defer(strand_);
     secondReceivePromise->then(std::bind(&ReceivePromiseHandlerMock::onResolve, &receivePromiseHandlerMock_, std::placeholders::_1),
                               std::bind(&ReceivePromiseHandlerMock::onReject, &receivePromiseHandlerMock_, std::placeholders::_1));
     themessenger->enqueueReceive(ChannelId::INPUT, std::move(secondReceivePromise));
@@ -127,7 +127,7 @@ BOOST_FIXTURE_TEST_CASE(Messenger_OnlyOneReceiveAtATime, MessengerUnitTest)
     ioService_.run();
     ioService_.reset();
 
-    auto secondReceivePromise = ReceivePromise::defer(ioService_);
+    auto secondReceivePromise = ReceivePromise::defer(strand_);
     secondReceivePromise->then(std::bind(&ReceivePromiseHandlerMock::onResolve, &receivePromiseHandlerMock_, std::placeholders::_1),
                               std::bind(&ReceivePromiseHandlerMock::onReject, &receivePromiseHandlerMock_, std::placeholders::_1));
     themessenger->enqueueReceive(ChannelId::INPUT, std::move(secondReceivePromise));
@@ -177,7 +177,7 @@ BOOST_FIXTURE_TEST_CASE(Messenger_OnlyOneSendAtATime, MessengerUnitTest)
     ioService_.run();
     ioService_.reset();
 
-    auto secondSendPromise = SendPromise::defer(ioService_);
+    auto secondSendPromise = SendPromise::defer(strand_);
     secondSendPromise->then(std::bind(&SendPromiseHandlerMock::onResolve, &sendPromiseHandlerMock_),
                            std::bind(&SendPromiseHandlerMock::onReject, &sendPromiseHandlerMock_, std::placeholders::_1));
     themessenger->enqueueSend(message, std::move(secondSendPromise));
@@ -208,7 +208,7 @@ BOOST_FIXTURE_TEST_CASE(Messenger_SendFailed, MessengerUnitTest)
     ioService_.run();
     ioService_.reset();
 
-    auto secondSendPromise = SendPromise::defer(ioService_);
+    auto secondSendPromise = SendPromise::defer(strand_);
     secondSendPromise->then(std::bind(&SendPromiseHandlerMock::onResolve, &sendPromiseHandlerMock_),
                            std::bind(&SendPromiseHandlerMock::onReject, &sendPromiseHandlerMock_, std::placeholders::_1));
     themessenger->enqueueSend(message, std::move(secondSendPromise));
