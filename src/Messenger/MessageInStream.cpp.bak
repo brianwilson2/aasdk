@@ -27,7 +27,7 @@ namespace messenger
 {
 
 MessageInStream::MessageInStream(boost::asio::io_context& ioService, transport::ITransport::Pointer transport, ICryptor::Pointer cryptor)
-    : strand_(ioService)
+    : strand_(ioService.get_executor())
     , transport_(std::move(transport))
     , cryptor_(std::move(cryptor))
 {
@@ -36,29 +36,38 @@ MessageInStream::MessageInStream(boost::asio::io_context& ioService, transport::
 
 void MessageInStream::startReceive(ReceivePromise::Pointer promise)
 {
-    strand_.dispatch([this, self = this->shared_from_this(), promise = std::move(promise)]() mutable {
-        if(promise_ == nullptr)
+    boost::asio::post(boost::asio::bind_executor(strand_, 
+        [this, self = this->shared_from_this(), promise = std::move(promise)]() mutable
         {
-            promise_ = std::move(promise);
+            if (promise_ == nullptr)
+            {
+                promise_ = std::move(promise);
 
-            auto transportPromise = transport::ITransport::ReceivePromise::defer(strand_);
-            transportPromise->then(
-                [this, self = this->shared_from_this()](common::Data data) mutable {
-                    this->receiveFrameHeaderHandler(common::DataConstBuffer(data));
-                },
-                [this, self = this->shared_from_this()](const error::Error& e) mutable {
-                    promise_->reject(e);
-                    promise_.reset();
-                });
+                auto transportPromise = transport::ITransport::ReceivePromise::defer(strand_);
 
-            transport_->receive(FrameHeader::getSizeOf(), std::move(transportPromise));
+                transportPromise->then(
+                    [this, self = this->shared_from_this()](std::vector<uint8_t>&& data)
+                    {
+                        common::DataConstBuffer buffer(data.data(), data.size());
+                        this->receiveFrameHeaderHandler(buffer);
+                    },
+                    [this, self = this->shared_from_this()](const error::Error& e)
+                    {
+                        promise_->reject(e);
+                        promise_.reset();
+                    });
+
+                transport_->receive(FrameHeader::getSizeOf(), std::move(transportPromise));
+            }
+            else
+            {
+                promise->reject(error::Error(error::ErrorCode::OPERATION_IN_PROGRESS));
+            }
         }
-        else
-        {
-            promise->reject(error::Error(error::ErrorCode::OPERATION_IN_PROGRESS));
-        }
-    });
+    ));
 }
+
+
 
 void MessageInStream::receiveFrameHeaderHandler(const common::DataConstBuffer& buffer)
 {

@@ -21,6 +21,7 @@
 #include <f1x/aasdk/Channel/AV/IAudioServiceChannelEventHandler.hpp>
 #include <f1x/aasdk/Channel/AV/AudioServiceChannel.hpp>
 #include <f1x/aasdk/Common/Log.hpp>
+#include <pthread.h>
 
 namespace f1x
 {

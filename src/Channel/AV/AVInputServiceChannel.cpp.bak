@@ -22,6 +22,7 @@
 #include <f1x/aasdk/Channel/AV/IAVInputServiceChannelEventHandler.hpp>
 #include <f1x/aasdk/Channel/AV/AVInputServiceChannel.hpp>
 #include <f1x/aasdk/Common/Log.hpp>
+#include <pthread.h>
 
 namespace f1x
 {

@@ -27,7 +27,7 @@ namespace usb
 
 ConnectedAccessoriesEnumerator::ConnectedAccessoriesEnumerator(IUSBWrapper& usbWrapper, boost::asio::io_context& ioService, IAccessoryModeQueryChainFactory& queryChainFactory)
     : usbWrapper_(usbWrapper)
-    , strand_(ioService)
+    , strand_(ioService.get_executor())
     , queryChainFactory_(queryChainFactory)
 {
 
@@ -35,42 +35,50 @@ ConnectedAccessoriesEnumerator::ConnectedAccessoriesEnumerator(IUSBWrapper& usbW
 
 void ConnectedAccessoriesEnumerator::enumerate(Promise::Pointer promise)
 {
-    strand_.dispatch([this, self = this->shared_from_this(), promise = std::move(promise)]() mutable {
-        if(promise_ != nullptr)
-        {
-            promise->reject(error::Error(error::ErrorCode::OPERATION_IN_PROGRESS));
-        }
-        else
-        {
-            promise_ = std::move(promise);
+    boost::asio::dispatch(
+        boost::asio::bind_executor(
+            strand_,
+            [this, self = this->shared_from_this(), promise = std::move(promise)]() mutable {
+                if(promise_ != nullptr)
+                {
+                    promise->reject(error::Error(error::ErrorCode::OPERATION_IN_PROGRESS));
+                }
+                else
+                {
+                    promise_ = std::move(promise);
 
-            auto result = usbWrapper_.getDeviceList(deviceListHandle_);
+                    auto result = usbWrapper_.getDeviceList(deviceListHandle_);
 
-            if(result < 0)
-            {
-                promise_->reject(error::Error(error::ErrorCode::USB_LIST_DEVICES));
+                    if(result < 0)
+                    {
+                        promise_->reject(error::Error(error::ErrorCode::USB_LIST_DEVICES));
+                    }
+                    else if(deviceListHandle_->empty())
+                    {
+                        promise_->resolve(false);
+                    }
+                    else
+                    {
+                        actualDeviceIter_ = deviceListHandle_->begin();
+                        queryNextDevice();
+                    }
+                }
             }
-            else if(deviceListHandle_->empty())
-            {
-                promise_->resolve(false);
-            }
-            else
-            {
-                actualDeviceIter_ = deviceListHandle_->begin();
-                this->queryNextDevice();
-            }
-        }
-    });
+        )
+    );
 }
 
 void ConnectedAccessoriesEnumerator::cancel()
 {
-    strand_.dispatch([this, self = this->shared_from_this()]() mutable {
-        if(queryChain_ != nullptr)
-        {
-            queryChain_->cancel();
+    boost::asio::dispatch(boost::asio::bind_executor(
+        strand_,
+        [this, self = this->shared_from_this()]() mutable {
+            if(queryChain_ != nullptr)
+            {
+                queryChain_->cancel();
+            }
         }
-    });
+    ));
 }
 
 void ConnectedAccessoriesEnumerator::queryNextDevice()
@@ -82,7 +90,8 @@ void ConnectedAccessoriesEnumerator::queryNextDevice()
         queryChain_ = queryChainFactory_.create();
         auto queryChainPromise = IAccessoryModeQueryChain::Promise::defer(strand_);
 
-        queryChainPromise->then([this, self = this->shared_from_this()](DeviceHandle) mutable {
+        queryChainPromise->then(
+            [this, self = this->shared_from_this()](DeviceHandle) mutable {
                 promise_->resolve(true);
                 this->reset();
             },
@@ -96,7 +105,8 @@ void ConnectedAccessoriesEnumerator::queryNextDevice()
                     promise_->reject(e);
                     this->reset();
                 }
-            });
+            }
+        );
 
         queryChain_->start(std::move(deviceHandle), std::move(queryChainPromise));
     }

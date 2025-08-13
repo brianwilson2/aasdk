@@ -16,6 +16,7 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <boost/asio.hpp>
 #include <f1x/aasdk/USB/AccessoryModeQueryChain.hpp>
 #include <f1x/aasdk/Error/Error.hpp>
 #include <f1x/aasdk/USB/USBEndpoint.hpp>
@@ -31,49 +32,63 @@ AccessoryModeQueryChain::AccessoryModeQueryChain(IUSBWrapper& usbWrapper,
                                                  boost::asio::io_context& ioService,
                                                  IAccessoryModeQueryFactory& queryFactory)
     : usbWrapper_(usbWrapper)
-    , strand_(ioService)
+    , strand_(ioService.get_executor())
     , queryFactory_(queryFactory)
 {
-
 }
 
 void AccessoryModeQueryChain::start(DeviceHandle handle, Promise::Pointer promise)
-{   
-    strand_.dispatch([this, self = this->shared_from_this(), handle = std::move(handle), promise = std::move(promise)]() mutable {
-        if(promise_ != nullptr)
-        {
-            promise->reject(error::Error(error::ErrorCode::OPERATION_IN_PROGRESS));
-        }
-        else
-        {
-            promise_ = std::move(promise);
+{
+    if (promise_ != nullptr) {
+        promise->reject(error::Error(error::ErrorCode::OPERATION_IN_PROGRESS));
+        return;
+    }
 
-            auto queryPromise = IAccessoryModeQuery::Promise::defer(strand_);
-            queryPromise->then([this, self = this->shared_from_this()](IUSBEndpoint::Pointer usbEndpoint) mutable {
-                    this->protocolVersionQueryHandler(std::move(usbEndpoint));
-                },
-                [this, self = this->shared_from_this()](const error::Error& e) mutable {
-                    promise_->reject(e);
-                    promise_.reset();
-                });
+    promise_ = std::move(promise);
 
-            this->startQuery(AccessoryModeQueryType::PROTOCOL_VERSION,
-                             std::make_shared<USBEndpoint>(usbWrapper_, strand_.get_io_service(), std::move(handle)),
-                             std::move(queryPromise));
+    // Create the correct type of promise expected by startQuery
+    auto queryPromise = IAccessoryModeQuery::Promise::defer(strand_);
+
+    // When the queryPromise resolves, forward the result to the original promise
+    queryPromise->then(
+        [this, self = shared_from_this()](IUSBEndpoint::Pointer endpoint) {
+            promise_->resolve(endpoint->getHandle());
+            promise_.reset();
+        },
+        [this, self = shared_from_this()](const error::Error& e) {
+            promise_->reject(e);
+            promise_.reset();
         }
-    });
+    );
+
+    this->startQuery(
+        AccessoryModeQueryType::PROTOCOL_VERSION,
+        std::make_shared<USBEndpoint>(usbWrapper_, static_cast<boost::asio::io_context&>(strand_.context()), std::move(handle)),
+        std::move(queryPromise)
+    );
 }
+
 
 void AccessoryModeQueryChain::cancel()
 {
-    strand_.dispatch([this, self = this->shared_from_this()]() {
-        if(activeQuery_ != nullptr)
-        {
-            activeQuery_->cancel();
-            activeQuery_.reset();
+    boost::asio::dispatch(boost::asio::bind_executor(
+        strand_, 
+        [this, self = this->shared_from_this()]() {
+            if (activeQuery_ != nullptr)
+            {
+                activeQuery_->cancel();
+                activeQuery_.reset();
+            }
+
+            if (promise_ != nullptr)
+            {
+                promise_->reject(error::Error(error::ErrorCode::OPERATION_ABORTED));
+                promise_.reset();
+            }
         }
-    });
+    ));
 }
+
 
 void AccessoryModeQueryChain::startQuery(AccessoryModeQueryType queryType, IUSBEndpoint::Pointer usbEndpoint, IAccessoryModeQuery::Promise::Pointer queryPromise)
 {

@@ -37,31 +37,38 @@ AccessoryModeProtocolVersionQuery::AccessoryModeProtocolVersionQuery(boost::asio
 
 void AccessoryModeProtocolVersionQuery::start(Promise::Pointer promise)
 {
-    strand_.dispatch([this, self = this->shared_from_this(), promise = std::move(promise)]() mutable {
-        if(promise_ != nullptr)
-        {
-            promise->reject(error::Error(error::ErrorCode::OPERATION_IN_PROGRESS));
-        }
-        else
-        {
-            promise_ = std::move(promise);
+    boost::asio::dispatch(
+        boost::asio::bind_executor(
+            strand_,
+            [this, self = this->shared_from_this(), promise = std::move(promise)]() mutable {
+                if(promise_ != nullptr)
+                {
+                    promise->reject(error::Error(error::ErrorCode::OPERATION_IN_PROGRESS));
+                }
+                else
+                {
+                    promise_ = std::move(promise);
 
-            auto usbEndpointPromise = IUSBEndpoint::Promise::defer(strand_);
-            usbEndpointPromise->then([this, self = this->shared_from_this()](size_t bytesTransferred) mutable {
-                    this->protocolVersionHandler(bytesTransferred);
-                 },
-                [this, self = this->shared_from_this()](const error::Error& e) mutable {
-                    promise_->reject(e);
-                    promise_.reset();
-                });
-            usbEndpoint_->controlTransfer(common::DataBuffer(data_), cTransferTimeoutMs, std::move(usbEndpointPromise));
-        }
-    });
+                    auto usbEndpointPromise = IUSBEndpoint::Promise::defer(strand_);
+                    usbEndpointPromise->then(
+                        [this, self = this->shared_from_this()](size_t bytesTransferred) mutable {
+                            this->protocolVersionHandler(bytesTransferred);
+                        },
+                        [this, self = this->shared_from_this()](const error::Error& e) mutable {
+                            promise_->reject(e);
+                            promise_.reset();
+                        });
+                    usbEndpoint_->controlTransfer(common::DataBuffer(data_), cTransferTimeoutMs, std::move(usbEndpointPromise));
+                }
+            }
+        )
+    );
 }
 
 void AccessoryModeProtocolVersionQuery::protocolVersionHandler(size_t bytesTransferred)
 {
-    ProtocolVersion protocolVersion = static_cast<const uint16_t&>(data_[8]);
+    ProtocolVersion protocolVersion;
+    std::memcpy(&protocolVersion, &data_[8], sizeof(protocolVersion));
 
     if(protocolVersion == 1 || protocolVersion == 2)
     {
@@ -74,6 +81,7 @@ void AccessoryModeProtocolVersionQuery::protocolVersionHandler(size_t bytesTrans
         promise_.reset();
     }
 }
+
 
 }
 }

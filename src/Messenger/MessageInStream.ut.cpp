@@ -41,9 +41,7 @@ class MessageInStreamUnitTest
 {
 protected:
     MessageInStreamUnitTest()
-        : transport_(&transportMock_, [](auto*) {})
-        , cryptor_(&cryptorMock_, [](auto*) {})
-        , receivePromise_(ReceivePromise::defer(ioService_))
+        : transport_(&transportMock_, [](auto*) {})) ;        , cryptor_(&cryptorMock_, [](auto*) {})) ;        , receivePromise_(ReceivePromise::defer(ioService_))
     {
         receivePromise_->then(std::bind(&ReceivePromiseHandlerMock::onResolve, &receivePromiseHandlerMock_, std::placeholders::_1),
                              std::bind(&ReceivePromiseHandlerMock::onReject, &receivePromiseHandlerMock_, std::placeholders::_1));

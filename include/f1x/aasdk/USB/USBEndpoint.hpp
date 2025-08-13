@@ -23,6 +23,7 @@
 #include <boost/asio.hpp>
 #include <f1x/aasdk/USB/IUSBWrapper.hpp>
 #include <f1x/aasdk/USB/IUSBEndpoint.hpp>
+#include <f1x/aasdk/USB/USBEndpoint.hpp>
 
 namespace f1x
 {
@@ -44,6 +45,8 @@ public:
     uint8_t getAddress() override;
     void cancelTransfers() override;
     DeviceHandle getDeviceHandle() const override;
+    std::shared_ptr<libusb_device_handle> getHandle() const override;
+
 
 private:
     typedef std::unordered_map<libusb_transfer*, Promise::Pointer> Transfers;

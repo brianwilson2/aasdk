@@ -20,6 +20,7 @@
 
 #include <boost/asio.hpp>
 #include <mutex>
+#include <pthread.h>
 
 namespace f1x
 {
@@ -44,7 +45,7 @@ public:
         }
         else if(strand_ != nullptr)
         {
-            strand_->post(std::move(handler));
+            strand_->post(std::move(handler), std::allocator<void>());
         }
     }
 

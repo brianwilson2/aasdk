@@ -43,14 +43,12 @@ public:
     {
 
     }
-
     static void forward(Promise<SourceResolveArgumentType>& source, typename Promise<DestinationResolveArgumentType>::Pointer destination,
-                        TransformFunctor transformFunctor = [](SourceResolveArgumentType&& argument) { return std::move(argument); })
-    {
-        auto link = std::make_shared<PromiseLink<SourceResolveArgumentType, DestinationResolveArgumentType>>(std::forward<typename Promise<DestinationResolveArgumentType>::Pointer>(destination),
-                                                                                                             std::forward<TransformFunctor>(transformFunctor));
-        source.then(link->getResolveHandler(), link->getRejectHandler());
-    }
+                    TransformFunctor transformFunctor = [](SourceResolveArgumentType&& argument) { return std::move(argument); })
+{
+    auto link = std::make_shared<PromiseLink<SourceResolveArgumentType, DestinationResolveArgumentType>>(std::move(destination), std::move(transformFunctor));
+    source.then(link->getResolveHandler(), link->getRejectHandler());
+}
 
 private:
     using std::enable_shared_from_this<PromiseLink<SourceResolveArgumentType, DestinationResolveArgumentType>>::shared_from_this;

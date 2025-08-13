@@ -41,28 +41,35 @@ AccessoryModeSendStringQuery::AccessoryModeSendStringQuery(boost::asio::io_conte
 
 void AccessoryModeSendStringQuery::start(Promise::Pointer promise)
 {
-    strand_.dispatch([this, self = this->shared_from_this(), promise = std::move(promise)]() mutable {
-        if(promise_ != nullptr)
-        {
-            promise->reject(error::Error(error::ErrorCode::OPERATION_IN_PROGRESS));
-        }
-        else
-        {
-            promise_ = std::move(promise);
+    boost::asio::dispatch(
+        boost::asio::bind_executor(
+            strand_,
+            [this, self = this->shared_from_this(), promise = std::move(promise)]() mutable {
+                if(promise_ != nullptr)
+                {
+                    promise->reject(error::Error(error::ErrorCode::OPERATION_IN_PROGRESS));
+                }
+                else
+                {
+                    promise_ = std::move(promise);
 
-            auto usbEndpointPromise = IUSBEndpoint::Promise::defer(strand_);
-            usbEndpointPromise->then([this, self = this->shared_from_this()](size_t bytesTransferred) mutable {
-                    promise_->resolve(usbEndpoint_);
-                    promise_.reset();
-                },
-                [this, self = this->shared_from_this()](const error::Error& e) mutable {
-                    promise_->reject(e);
-                    promise_.reset();
-                });
+                    usbEndpoint->sendString(index,string,
+                        [this, self = this->shared_from_this(), usbEndpoint](size_t /*bytesTransferred*/) mutable {
+                        // ignore bytesTransferred; just resolve with the endpoint pointer
+                            promise_->resolve(usbEndpoint);
+                            promise_.reset();
+               },
+                        [this, self = this->shared_from_this()](const error::Error& e) mutable {
+                            promise_->reject(e);
+                            promise_.reset();
+               });
 
-            usbEndpoint_->controlTransfer(common::DataBuffer(data_), cTransferTimeoutMs, std::move(usbEndpointPromise));
-        }
-    });
+
+                    usbEndpoint_->controlTransfer(common::DataBuffer(data_), cTransferTimeoutMs, std::move(usbEndpointPromise));
+                }
+            }
+        )
+    );
 }
 
 }

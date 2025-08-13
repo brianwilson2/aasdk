@@ -40,8 +40,7 @@ class USBEndpointUnitTest
 {
 protected:
     USBEndpointUnitTest()
-      : deviceHandle_(reinterpret_cast<libusb_device_handle*>(&dummyDeviceHandle_), [](auto*) {})
-      , promise_(IUSBEndpoint::Promise::defer(ioService_))
+      : deviceHandle_(reinterpret_cast<libusb_device_handle*>(&dummyDeviceHandle_), [](auto*) {})) ;      , promise_(IUSBEndpoint::Promise::defer(ioService_))
     {
         promise_->then(std::bind(&USBEndpointPromiseHandlerMock::onResolve, &promiseHandlerMock_, std::placeholders::_1),
                       std::bind(&USBEndpointPromiseHandlerMock::onReject, &promiseHandlerMock_, std::placeholders::_1));

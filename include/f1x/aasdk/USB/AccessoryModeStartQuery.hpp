@@ -16,18 +16,13 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
-
 #include <f1x/aasdk/USB/AccessoryModeQuery.hpp>
 
-namespace f1x
-{
-namespace aasdk
-{
-namespace usb
-{
+namespace f1x {
+namespace aasdk {
+namespace usb {
 
-class AccessoryModeStartQuery: public AccessoryModeQuery, public std::enable_shared_from_this<AccessoryModeStartQuery>
+class AccessoryModeStartQuery : public AccessoryModeQuery, public std::enable_shared_from_this<AccessoryModeStartQuery>
 {
 public:
     AccessoryModeStartQuery(boost::asio::io_context& ioService, IUSBWrapper& usbWrapper, IUSBEndpoint::Pointer usbEndpoint);
@@ -39,6 +34,6 @@ private:
     static constexpr uint32_t ACC_REQ_START = 53;
 };
 
-}
-}
-}
+} // namespace usb
+} // namespace aasdk
+} // namespace f1x

@@ -41,9 +41,7 @@ class MessageOutStreamUnitTest
 {
 protected:
     MessageOutStreamUnitTest()
-        : transport_(&transportMock_, [](auto*) {})
-        , cryptor_(&cryptorMock_, [](auto*) {})
-        , sendPromise_(SendPromise::defer(ioService_))
+        : transport_(&transportMock_, [](auto*) {})) ;        , cryptor_(&cryptorMock_, [](auto*) {})) ;        , sendPromise_(SendPromise::defer(ioService_))
     {
         sendPromise_->then(std::bind(&SendPromiseHandlerMock::onResolve, &sendPromiseHandlerMock_),
                           std::bind(&SendPromiseHandlerMock::onReject, &sendPromiseHandlerMock_, std::placeholders::_1));

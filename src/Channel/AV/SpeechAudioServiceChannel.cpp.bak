@@ -17,6 +17,7 @@
 */
 
 #include <f1x/aasdk/Channel/AV/SpeechAudioServiceChannel.hpp>
+#include <pthread.h>
 
 namespace f1x
 {

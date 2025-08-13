@@ -36,6 +36,7 @@ public:
     typedef std::shared_ptr<IUSBEndpoint> Pointer;
     typedef io::Promise<size_t> Promise;
 
+
     IUSBEndpoint() = default;
     virtual ~IUSBEndpoint() = default;
 
@@ -45,6 +46,8 @@ public:
     virtual void interruptTransfer(common::DataBuffer buffer, uint32_t timeout, Promise::Pointer promise) = 0;
     virtual void cancelTransfers() = 0;
     virtual DeviceHandle getDeviceHandle() const = 0;
+    virtual std::shared_ptr<libusb_device_handle> getHandle() const = 0;
+
 };
 
 }

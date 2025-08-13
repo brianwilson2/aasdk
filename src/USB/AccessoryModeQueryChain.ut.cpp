@@ -41,8 +41,7 @@ class AccessoryModeQueryChainUnitTest
 {
 protected:
     AccessoryModeQueryChainUnitTest()
-        : deviceHandle_(reinterpret_cast<libusb_device_handle*>(&dummyDeviceHandle_), [](auto*) {})
-        , queryMock_(std::make_shared<AccessoryModeQueryMock>())
+        : deviceHandle_(reinterpret_cast<libusb_device_handle*>(&dummyDeviceHandle_), [](auto*) {})) ;        , queryMock_(std::make_shared<AccessoryModeQueryMock>())
         , promise_(IAccessoryModeQueryChain::Promise::defer(ioService_))
     {
         promise_->then(std::bind(&AccessoryModeQueryChainPromiseHandlerMock::onResolve, &promiseHandlerMock_, std::placeholders::_1),

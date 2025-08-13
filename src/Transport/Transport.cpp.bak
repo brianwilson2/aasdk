@@ -25,28 +25,34 @@ namespace aasdk
 namespace transport
 {
 
+// Constructor: only member initializations here
 Transport::Transport(boost::asio::io_context& ioService)
-    : receiveStrand_(ioService)
-    , sendStrand_(ioService)
-{}
+    : receiveStrand_(boost::asio::make_strand(ioService))
+    , sendStrand_(boost::asio::make_strand(ioService))
+{
+    // Constructor body - empty or setup code here
+}
 
+// Member function: receive, posting the task properly inside function body
 void Transport::receive(size_t size, ReceivePromise::Pointer promise)
 {
-    receiveStrand_.dispatch([this, self = this->shared_from_this(), size, promise = std::move(promise)]() mutable {
-        receiveQueue_.emplace_back(std::make_pair(size, std::move(promise)));
-
-        if(receiveQueue_.size() == 1)
+    boost::asio::post(receiveStrand_,
+        [this, self = this->shared_from_this(), size, promise = std::move(promise)]() mutable
         {
-            try
+            receiveQueue_.emplace_back(std::make_pair(size, std::move(promise)));
+
+            if (receiveQueue_.size() == 1)
             {
-                this->distributeReceivedData();
+                try
+                {
+                    this->distributeReceivedData();
+                }
+                catch (const error::Error& e)
+                {
+                    this->rejectReceivePromises(e);
+                }
             }
-            catch(const error::Error& e)
-            {
-                this->rejectReceivePromises(e);
-            }
-        }
-    });
+        });
 }
 
 void Transport::receiveHandler(size_t bytesTransferred)
@@ -94,16 +100,18 @@ void Transport::rejectReceivePromises(const error::Error& e)
 
 void Transport::send(common::Data data, SendPromise::Pointer promise)
 {
-    sendStrand_.dispatch([this, self = this->shared_from_this(), data = std::move(data), promise = std::move(promise)]() mutable {
-        sendQueue_.emplace_back(std::make_pair(std::move(data), std::move(promise)));
-
-        if(sendQueue_.size() == 1)
+    boost::asio::post(sendStrand_,
+        [this, self = this->shared_from_this(), data = std::move(data), promise = std::move(promise)]() mutable
         {
-            this->enqueueSend(sendQueue_.begin());
-        }
-    });
+            sendQueue_.emplace_back(std::make_pair(std::move(data), std::move(promise)));
+
+            if(sendQueue_.size() == 1)
+            {
+                this->enqueueSend(sendQueue_.begin());
+            }
+        });
 }
 
-}
-}
-}
+} // namespace transport
+} // namespace aasdk
+} // namespace f1x

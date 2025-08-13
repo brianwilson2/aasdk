@@ -1,0 +1,184 @@
+[ 81%] Built target aasdk_proto
+[ 81%] Building CXX object CMakeFiles/aasdk.dir/src/Channel/AV/AVInputServiceChannel.cpp.o
+[ 81%] Building CXX object CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o
+[ 82%] Building CXX object CMakeFiles/aasdk.dir/src/Channel/AV/MediaAudioServiceChannel.cpp.o
+[ 82%] Building CXX object CMakeFiles/aasdk.dir/src/Channel/AV/SpeechAudioServiceChannel.cpp.o
+In file included from /usr/include/pthread.h:33,
+                 from /usr/include/arm-linux-gnueabihf/c++/12/bits/gthr-default.h:35,
+                 from /usr/include/arm-linux-gnueabihf/c++/12/bits/gthr.h:148,
+                 from /usr/include/c++/12/ext/atomicity.h:35,
+                 from /usr/include/c++/12/bits/shared_ptr_base.h:61,
+                 from /usr/include/c++/12/bits/shared_ptr.h:53,
+                 from /usr/include/c++/12/memory:77,
+                 from /usr/local/include/boost/asio/associated_allocator.hpp:19,
+                 from /usr/local/include/boost/asio.hpp:20,
+                 from /home/brian/aasdk/include/f1x/aasdk/Channel/ServiceChannel.hpp:21,
+                 from /home/brian/aasdk/include/f1x/aasdk/Channel/AV/AudioServiceChannel.hpp:22,
+                 from /home/brian/aasdk/include/f1x/aasdk/Channel/AV/MediaAudioServiceChannel.hpp:21,
+                 from /home/brian/aasdk/src/Channel/AV/MediaAudioServiceChannel.cpp:19:
+/usr/local/include/boost/thread/pthread/thread_data.hpp:60:5: error: missing binary operator before token "("
+   60 | #if PTHREAD_STACK_MIN > 0
+      |     ^~~~~~~~~~~~~~~~~
+In file included from /usr/include/pthread.h:33,
+                 from /usr/include/arm-linux-gnueabihf/c++/12/bits/gthr-default.h:35,
+                 from /usr/include/arm-linux-gnueabihf/c++/12/bits/gthr.h:148,
+                 from /usr/include/c++/12/ext/atomicity.h:35,
+                 from /usr/include/c++/12/bits/shared_ptr_base.h:61,
+                 from /usr/include/c++/12/bits/shared_ptr.h:53,
+                 from /usr/include/c++/12/memory:77,
+                 from /usr/local/include/boost/asio/associated_allocator.hpp:19,
+                 from /usr/local/include/boost/asio.hpp:20,
+                 from /home/brian/aasdk/include/f1x/aasdk/Channel/ServiceChannel.hpp:21,
+                 from /home/brian/aasdk/include/f1x/aasdk/Channel/AV/AudioServiceChannel.hpp:22,
+                 from /home/brian/aasdk/include/f1x/aasdk/Channel/AV/SpeechAudioServiceChannel.hpp:21,
+                 from /home/brian/aasdk/src/Channel/AV/SpeechAudioServiceChannel.cpp:19:
+/usr/local/include/boost/thread/pthread/thread_data.hpp:60:5: error: missing binary operator before token "("
+   60 | #if PTHREAD_STACK_MIN > 0
+      |     ^~~~~~~~~~~~~~~~~
+In file included from /usr/include/arm-linux-gnueabihf/bits/local_lim.h:81,
+                 from /usr/include/arm-linux-gnueabihf/bits/posix1_lim.h:161,
+                 from /usr/include/limits.h:195,
+                 from /usr/lib/gcc/arm-linux-gnueabihf/12/include/limits.h:203,
+                 from /usr/lib/gcc/arm-linux-gnueabihf/12/include/syslimits.h:7,
+                 from /usr/lib/gcc/arm-linux-gnueabihf/12/include/limits.h:34,
+                 from /usr/include/c++/12/climits:42,
+                 from /usr/include/google/protobuf/io/coded_stream.h:116,
+                 from /home/brian/aasdk/aasdk_proto/ControlMessageIdsEnum.pb.h:23,
+                 from /home/brian/aasdk/src/Channel/AV/AVInputServiceChannel.cpp:19:
+/usr/local/include/boost/thread/pthread/thread_data.hpp:60:5: error: missing binary operator before token "("
+   60 | #if PTHREAD_STACK_MIN > 0
+      |     ^~~~~~~~~~~~~~~~~
+In file included from /usr/include/arm-linux-gnueabihf/bits/local_lim.h:81,
+                 from /usr/include/arm-linux-gnueabihf/bits/posix1_lim.h:161,
+                 from /usr/include/limits.h:195,
+                 from /usr/lib/gcc/arm-linux-gnueabihf/12/include/limits.h:203,
+                 from /usr/lib/gcc/arm-linux-gnueabihf/12/include/syslimits.h:7,
+                 from /usr/lib/gcc/arm-linux-gnueabihf/12/include/limits.h:34,
+                 from /usr/include/c++/12/climits:42,
+                 from /usr/include/google/protobuf/io/coded_stream.h:116,
+                 from /home/brian/aasdk/aasdk_proto/AVChannelMessageIdsEnum.pb.h:23,
+                 from /home/brian/aasdk/src/Channel/AV/AudioServiceChannel.cpp:19:
+/usr/local/include/boost/thread/pthread/thread_data.hpp:60:5: error: missing binary operator before token "("
+   60 | #if PTHREAD_STACK_MIN > 0
+      |     ^~~~~~~~~~~~~~~~~
+In file included from /home/brian/aasdk/include/f1x/aasdk/IO/Promise.hpp:26,
+                 from /home/brian/aasdk/include/f1x/aasdk/Messenger/Promise.hpp:22,
+                 from /home/brian/aasdk/include/f1x/aasdk/Messenger/IMessenger.hpp:25,
+                 from /home/brian/aasdk/include/f1x/aasdk/Channel/ServiceChannel.hpp:22:
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp: In instantiation of ‘void f1x::aasdk::io::IOContextWrapper::post(CompletionHandlerType&&) [with CompletionHandlerType = f1x::aasdk::io::Promise<void, void>::resolve()::<lambda()>]’:
+/home/brian/aasdk/include/f1x/aasdk/IO/Promise.hpp:242:35:   required from here
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp:48:26: error: no matching function for call to ‘boost::asio::strand<boost::asio::io_context::executor_type>::post(std::remove_reference<f1x::aasdk::io::Promise<void, void>::resolve()::<lambda()>&>::type)’
+   48 |             strand_->post(std::move(handler));
+      |             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+In file included from /usr/local/include/boost/asio.hpp:123:
+/usr/local/include/boost/asio/strand.hpp:211:8: note: candidate: ‘template<class Function, class Allocator> void boost::asio::strand<Executor>::post(Function&&, const Allocator&) const [with Allocator = Function; Executor = boost::asio::io_context::executor_type]’
+  211 |   void post(BOOST_ASIO_MOVE_ARG(Function) f, const Allocator& a) const
+      |        ^~~~
+/usr/local/include/boost/asio/strand.hpp:211:8: note:   template argument deduction/substitution failed:
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp:48:26: note:   candidate expects 2 arguments, 1 provided
+   48 |             strand_->post(std::move(handler));
+      |             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp: In instantiation of ‘void f1x::aasdk::io::IOContextWrapper::post(CompletionHandlerType&&) [with CompletionHandlerType = f1x::aasdk::io::Promise<void, void>::reject()::<lambda()>]’:
+/home/brian/aasdk/include/f1x/aasdk/IO/Promise.hpp:257:35:   required from here
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp:48:26: error: no matching function for call to ‘boost::asio::strand<boost::asio::io_context::executor_type>::post(std::remove_reference<f1x::aasdk::io::Promise<void, void>::reject()::<lambda()>&>::type)’
+/usr/local/include/boost/asio/strand.hpp:211:8: note: candidate: ‘template<class Function, class Allocator> void boost::asio::strand<Executor>::post(Function&&, const Allocator&) const [with Allocator = Function; Executor = boost::asio::io_context::executor_type]’
+  211 |   void post(BOOST_ASIO_MOVE_ARG(Function) f, const Allocator& a) const
+      |        ^~~~
+/usr/local/include/boost/asio/strand.hpp:211:8: note:   template argument deduction/substitution failed:
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp:48:26: note:   candidate expects 2 arguments, 1 provided
+   48 |             strand_->post(std::move(handler));
+      |             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+In file included from /home/brian/aasdk/include/f1x/aasdk/IO/Promise.hpp:26,
+                 from /home/brian/aasdk/include/f1x/aasdk/Messenger/Promise.hpp:22,
+                 from /home/brian/aasdk/include/f1x/aasdk/Messenger/IMessenger.hpp:25,
+                 from /home/brian/aasdk/include/f1x/aasdk/Channel/ServiceChannel.hpp:22:
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp: In instantiation of ‘void f1x::aasdk::io::IOContextWrapper::post(CompletionHandlerType&&) [with CompletionHandlerType = f1x::aasdk::io::Promise<void, void>::resolve()::<lambda()>]’:
+/home/brian/aasdk/include/f1x/aasdk/IO/Promise.hpp:242:35:   required from here
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp:48:26: error: no matching function for call to ‘boost::asio::strand<boost::asio::io_context::executor_type>::post(std::remove_reference<f1x::aasdk::io::Promise<void, void>::resolve()::<lambda()>&>::type)’
+   48 |             strand_->post(std::move(handler));
+      |             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+In file included from /usr/local/include/boost/asio.hpp:123:
+/usr/local/include/boost/asio/strand.hpp:211:8: note: candidate: ‘template<class Function, class Allocator> void boost::asio::strand<Executor>::post(Function&&, const Allocator&) const [with Allocator = Function; Executor = boost::asio::io_context::executor_type]’
+  211 |   void post(BOOST_ASIO_MOVE_ARG(Function) f, const Allocator& a) const
+      |        ^~~~
+/usr/local/include/boost/asio/strand.hpp:211:8: note:   template argument deduction/substitution failed:
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp:48:26: note:   candidate expects 2 arguments, 1 provided
+   48 |             strand_->post(std::move(handler));
+      |             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp: In instantiation of ‘void f1x::aasdk::io::IOContextWrapper::post(CompletionHandlerType&&) [with CompletionHandlerType = f1x::aasdk::io::Promise<void, void>::reject()::<lambda()>]’:
+/home/brian/aasdk/include/f1x/aasdk/IO/Promise.hpp:257:35:   required from here
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp:48:26: error: no matching function for call to ‘boost::asio::strand<boost::asio::io_context::executor_type>::post(std::remove_reference<f1x::aasdk::io::Promise<void, void>::reject()::<lambda()>&>::type)’
+/usr/local/include/boost/asio/strand.hpp:211:8: note: candidate: ‘template<class Function, class Allocator> void boost::asio::strand<Executor>::post(Function&&, const Allocator&) const [with Allocator = Function; Executor = boost::asio::io_context::executor_type]’
+  211 |   void post(BOOST_ASIO_MOVE_ARG(Function) f, const Allocator& a) const
+      |        ^~~~
+/usr/local/include/boost/asio/strand.hpp:211:8: note:   template argument deduction/substitution failed:
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp:48:26: note:   candidate expects 2 arguments, 1 provided
+   48 |             strand_->post(std::move(handler));
+      |             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+In file included from /home/brian/aasdk/include/f1x/aasdk/IO/Promise.hpp:26,
+                 from /home/brian/aasdk/include/f1x/aasdk/Messenger/Promise.hpp:22,
+                 from /home/brian/aasdk/include/f1x/aasdk/Messenger/IMessenger.hpp:25,
+                 from /home/brian/aasdk/include/f1x/aasdk/Channel/ServiceChannel.hpp:22,
+                 from /home/brian/aasdk/include/f1x/aasdk/Channel/AV/AudioServiceChannel.hpp:22,
+                 from /home/brian/aasdk/src/Channel/AV/AudioServiceChannel.cpp:22:
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp: In instantiation of ‘void f1x::aasdk::io::IOContextWrapper::post(CompletionHandlerType&&) [with CompletionHandlerType = f1x::aasdk::io::Promise<void, void>::resolve()::<lambda()>]’:
+/home/brian/aasdk/include/f1x/aasdk/IO/Promise.hpp:242:35:   required from here
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp:48:26: error: no matching function for call to ‘boost::asio::strand<boost::asio::io_context::executor_type>::post(std::remove_reference<f1x::aasdk::io::Promise<void, void>::resolve()::<lambda()>&>::type)’
+   48 |             strand_->post(std::move(handler));
+      |             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+In file included from /usr/local/include/boost/asio.hpp:123,
+                 from /home/brian/aasdk/include/f1x/aasdk/Channel/ServiceChannel.hpp:21:
+/usr/local/include/boost/asio/strand.hpp:211:8: note: candidate: ‘template<class Function, class Allocator> void boost::asio::strand<Executor>::post(Function&&, const Allocator&) const [with Allocator = Function; Executor = boost::asio::io_context::executor_type]’
+  211 |   void post(BOOST_ASIO_MOVE_ARG(Function) f, const Allocator& a) const
+      |        ^~~~
+/usr/local/include/boost/asio/strand.hpp:211:8: note:   template argument deduction/substitution failed:
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp:48:26: note:   candidate expects 2 arguments, 1 provided
+   48 |             strand_->post(std::move(handler));
+      |             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp: In instantiation of ‘void f1x::aasdk::io::IOContextWrapper::post(CompletionHandlerType&&) [with CompletionHandlerType = f1x::aasdk::io::Promise<void, void>::reject()::<lambda()>]’:
+/home/brian/aasdk/include/f1x/aasdk/IO/Promise.hpp:257:35:   required from here
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp:48:26: error: no matching function for call to ‘boost::asio::strand<boost::asio::io_context::executor_type>::post(std::remove_reference<f1x::aasdk::io::Promise<void, void>::reject()::<lambda()>&>::type)’
+/usr/local/include/boost/asio/strand.hpp:211:8: note: candidate: ‘template<class Function, class Allocator> void boost::asio::strand<Executor>::post(Function&&, const Allocator&) const [with Allocator = Function; Executor = boost::asio::io_context::executor_type]’
+  211 |   void post(BOOST_ASIO_MOVE_ARG(Function) f, const Allocator& a) const
+      |        ^~~~
+/usr/local/include/boost/asio/strand.hpp:211:8: note:   template argument deduction/substitution failed:
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp:48:26: note:   candidate expects 2 arguments, 1 provided
+   48 |             strand_->post(std::move(handler));
+      |             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+In file included from /home/brian/aasdk/include/f1x/aasdk/IO/Promise.hpp:26,
+                 from /home/brian/aasdk/include/f1x/aasdk/Messenger/Promise.hpp:22,
+                 from /home/brian/aasdk/include/f1x/aasdk/Messenger/IMessenger.hpp:25,
+                 from /home/brian/aasdk/include/f1x/aasdk/Channel/ServiceChannel.hpp:22,
+                 from /home/brian/aasdk/include/f1x/aasdk/Channel/AV/AVInputServiceChannel.hpp:23,
+                 from /home/brian/aasdk/src/Channel/AV/AVInputServiceChannel.cpp:23:
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp: In instantiation of ‘void f1x::aasdk::io::IOContextWrapper::post(CompletionHandlerType&&) [with CompletionHandlerType = f1x::aasdk::io::Promise<void, void>::resolve()::<lambda()>]’:
+/home/brian/aasdk/include/f1x/aasdk/IO/Promise.hpp:242:35:   required from here
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp:48:26: error: no matching function for call to ‘boost::asio::strand<boost::asio::io_context::executor_type>::post(std::remove_reference<f1x::aasdk::io::Promise<void, void>::resolve()::<lambda()>&>::type)’
+   48 |             strand_->post(std::move(handler));
+      |             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+In file included from /usr/local/include/boost/asio.hpp:123,
+                 from /home/brian/aasdk/include/f1x/aasdk/Channel/ServiceChannel.hpp:21:
+/usr/local/include/boost/asio/strand.hpp:211:8: note: candidate: ‘template<class Function, class Allocator> void boost::asio::strand<Executor>::post(Function&&, const Allocator&) const [with Allocator = Function; Executor = boost::asio::io_context::executor_type]’
+  211 |   void post(BOOST_ASIO_MOVE_ARG(Function) f, const Allocator& a) const
+      |        ^~~~
+/usr/local/include/boost/asio/strand.hpp:211:8: note:   template argument deduction/substitution failed:
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp:48:26: note:   candidate expects 2 arguments, 1 provided
+   48 |             strand_->post(std::move(handler));
+      |             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp: In instantiation of ‘void f1x::aasdk::io::IOContextWrapper::post(CompletionHandlerType&&) [with CompletionHandlerType = f1x::aasdk::io::Promise<void, void>::reject()::<lambda()>]’:
+/home/brian/aasdk/include/f1x/aasdk/IO/Promise.hpp:257:35:   required from here
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp:48:26: error: no matching function for call to ‘boost::asio::strand<boost::asio::io_context::executor_type>::post(std::remove_reference<f1x::aasdk::io::Promise<void, void>::reject()::<lambda()>&>::type)’
+/usr/local/include/boost/asio/strand.hpp:211:8: note: candidate: ‘template<class Function, class Allocator> void boost::asio::strand<Executor>::post(Function&&, const Allocator&) const [with Allocator = Function; Executor = boost::asio::io_context::executor_type]’
+  211 |   void post(BOOST_ASIO_MOVE_ARG(Function) f, const Allocator& a) const
+      |        ^~~~
+/usr/local/include/boost/asio/strand.hpp:211:8: note:   template argument deduction/substitution failed:
+/home/brian/aasdk/include/f1x/aasdk/IO/IOContextWrapper.hpp:48:26: note:   candidate expects 2 arguments, 1 provided
+   48 |             strand_->post(std::move(handler));
+      |             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+make[2]: *** [CMakeFiles/aasdk.dir/build.make:104: CMakeFiles/aasdk.dir/src/Channel/AV/MediaAudioServiceChannel.cpp.o] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[2]: *** [CMakeFiles/aasdk.dir/build.make:118: CMakeFiles/aasdk.dir/src/Channel/AV/SpeechAudioServiceChannel.cpp.o] Error 1
+make[2]: *** [CMakeFiles/aasdk.dir/build.make:90: CMakeFiles/aasdk.dir/src/Channel/AV/AudioServiceChannel.cpp.o] Error 1
+make[2]: *** [CMakeFiles/aasdk.dir/build.make:76: CMakeFiles/aasdk.dir/src/Channel/AV/AVInputServiceChannel.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:100: CMakeFiles/aasdk.dir/all] Error 2
+make: *** [Makefile:91: all] Error 2

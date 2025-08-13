@@ -36,7 +36,7 @@ ServiceChannel::ServiceChannel(boost::asio::strand<boost::asio::io_context::exec
 
 void ServiceChannel::send(messenger::Message::Pointer message, SendPromise::Pointer promise)
 {
-    auto sendPromise = messenger::SendPromise::defer(strand_.get_executor());
+    auto sendPromise = messenger::SendPromise::defer(strand_);
     io::PromiseLink<>::forward(*sendPromise, std::move(promise));
     messenger_->enqueueSend(std::move(message), std::move(sendPromise));
 }

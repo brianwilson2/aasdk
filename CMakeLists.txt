@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.5.1)
 project(aasdk CXX)
 
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+
+add_definitions(-D_POSIX_C_SOURCE=200809L)
+
 set(base_directory ${CMAKE_CURRENT_SOURCE_DIR})
 set(sources_directory ${base_directory}/src)
 
@@ -70,7 +75,9 @@ target_link_libraries(aasdk
                         ${LIBUSB_1_LIBRARIES}
                         ${PROTOBUF_LIBRARIES}
                         ${OPENSSL_LIBRARIES}
-                        ${WINSOCK2_LIBRARIES})
+                        ${WINSOCK2_LIBRARIES}
+                        Threads::Threads)
+
 
 if(AASDK_TEST)
     add_executable(aasdk_ut

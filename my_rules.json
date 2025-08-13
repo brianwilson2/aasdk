@@ -1,0 +1,62 @@
+[
+  {
+    "description": "Replace deprecated strand_.post with strand_.post",
+    "search": "strand_\\.dispatch",
+    "replace": "strand_.post"
+  },
+  {
+    "description": "Fix deprecated .get_executor() usage",
+    "search": "\\.get_executor\\(\\)\\.context\\(\\)",
+    "replace": ".get_executor()"
+  },
+  {
+    "description": "Remove trailing commas before )",
+    "search": ",\\s*\\)",
+    "replace": ")"
+  },
+  {
+    "description": "Remove trailing commas before ]",
+    "search": ",\\s*\\]",
+    "replace": "]"
+  },
+  {
+    "description": "Fix capture list whitespace",
+    "search": "\\[this,\\s*self\\s*=\\s*this->shared_from_this\\(\\)\\]",
+    "replace": "[this, self = this->shared_from_this()]"
+  },
+  {
+    "description": "Remove const & from parameters",
+    "search": "\\bconst\\s+(\\w+)\\s*&",
+    "replace": "\\1 "
+  },
+  {
+    "description": "Fix deprecated strand_.get_io_context() usage",
+    "file_pattern": ".*\\.(cpp|hpp|h)$",
+    "search": "strand_\\.get_io_context\\(\\)",
+    "replace": "strand_.get_executor()"
+  },
+  {
+    "description": "Fix IChannel.hpp include to full path and add missing Promise includes",
+    "file_pattern": ".*\\.(cpp|hpp|h)$",
+    "search": "#include \"IChannel.hpp\"",
+    "replace": "#include <f1x/aasdk/Channel/IChannel.hpp>\n#include <f1x/aasdk/Channel/SendPromise.hpp>\n#include <f1x/aasdk/Channel/ReceivePromise.hpp>"
+  },
+  {
+    "description": "Fix IChannel.hpp include to full path only",
+    "file_pattern": ".*\\.(hpp|cpp|h)$",
+    "search": "#include \"IChannel.hpp\"",
+    "replace": "#include <f1x/aasdk/Channel/IChannel.hpp>"
+  },
+  {
+    "description": "Add missing Promise includes if missing",
+    "file_pattern": ".*\\.(hpp|cpp|h)$",
+    "condition_missing": [
+      "#include <f1x/aasdk/Channel/SendPromise.hpp>",
+      "#include <f1x/aasdk/Channel/ReceivePromise.hpp>"
+    ],
+    "insert_after": "#include <f1x/aasdk/Channel/IChannel.hpp>",
+    "insert_text": "#include <f1x/aasdk/Channel/SendPromise.hpp>\n#include <f1x/aasdk/Channel/ReceivePromise.hpp>"
+  }
+]
+
+

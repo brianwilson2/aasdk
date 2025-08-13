@@ -28,7 +28,7 @@ namespace messenger
 {
 
 MessageOutStream::MessageOutStream(boost::asio::io_context& ioService, transport::ITransport::Pointer transport, ICryptor::Pointer cryptor)
-    : strand_(ioService)
+    : strand_(ioService.get_executor())
     , transport_(std::move(transport))
     , cryptor_(std::move(cryptor))
     , offset_(0)
@@ -39,7 +39,7 @@ MessageOutStream::MessageOutStream(boost::asio::io_context& ioService, transport
 
 void MessageOutStream::stream(Message::Pointer message, SendPromise::Pointer promise)
 {
-    strand_.dispatch([this, self = this->shared_from_this(), message = std::move(message), promise = std::move(promise)]() mutable {
+    boost::asio::dispatch(boost::asio::bind_executor(strand_, [this, self = this->shared_from_this(), message = std::move(message), promise = std::move(promise)]() mutable {
         if(promise_ != nullptr)
         {
             promise->reject(error::Error(error::ErrorCode::OPERATION_IN_PROGRESS));
@@ -73,7 +73,7 @@ void MessageOutStream::stream(Message::Pointer message, SendPromise::Pointer pro
 
             this->reset();
         }
-    });
+    }));
 }
 
 void MessageOutStream::streamSplittedMessage()

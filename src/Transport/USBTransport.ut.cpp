@@ -43,8 +43,7 @@ protected:
     USBTransportUnitTest()
         : receivePromise_(ITransport::ReceivePromise::defer(ioService_))
         , sendPromise_(ITransport::SendPromise::defer(ioService_))
-        , aoapDevice_(&aoapDeviceMock_, [](auto*) {})
-    {
+        , aoapDevice_(&aoapDeviceMock_, [](auto*) {})) ;    {
         EXPECT_CALL(aoapDeviceMock_, getInEndpoint()).WillRepeatedly(ReturnRef(inEndpointMock_));
         EXPECT_CALL(aoapDeviceMock_, getOutEndpoint()).WillRepeatedly(ReturnRef(outEndpointMock_));
 

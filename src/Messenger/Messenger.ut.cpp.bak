@@ -40,9 +40,7 @@ class MessengerUnitTest
 {
 protected:
     MessengerUnitTest()
-        : messageInStream_(&messageInStreamMock_, [](auto*) {})
-        , messageOutStream_(&messageOutStreamMock_, [](auto*) {})
-        , receivePromise_(ReceivePromise::defer(ioService_))
+        : messageInStream_(&messageInStreamMock_, [](auto*) {})) ;        , messageOutStream_(&messageOutStreamMock_, [](auto*) {})) ;        , receivePromise_(ReceivePromise::defer(ioService_))
         , sendPromise_(SendPromise::defer(ioService_))
     {
         receivePromise_->then(std::bind(&ReceivePromiseHandlerMock::onResolve, &receivePromiseHandlerMock_, std::placeholders::_1),

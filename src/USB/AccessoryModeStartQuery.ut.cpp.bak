@@ -40,8 +40,7 @@ class AccessoryModeStartQueryUnitTest
 protected:
     AccessoryModeStartQueryUnitTest()
       : usbEndpointMock_(std::make_shared<USBEndpointMock>())
-      , usbEndpoint_(usbEndpointMock_.get(), [](auto*) {})
-      , promise_(IAccessoryModeQuery::Promise::defer(ioService_))
+      , usbEndpoint_(usbEndpointMock_.get(), [](auto*) {})) ;      , promise_(IAccessoryModeQuery::Promise::defer(ioService_))
     {
         promise_->then(std::bind(&AccessoryModeQueryPromiseHandlerMock::onResolve, &promiseHandlerMock_, std::placeholders::_1),
                       std::bind(&AccessoryModeQueryPromiseHandlerMock::onReject, &promiseHandlerMock_, std::placeholders::_1));

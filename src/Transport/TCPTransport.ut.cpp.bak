@@ -42,8 +42,7 @@ protected:
     TCPTransportUnitTest()
         : receivePromise_(ITransport::ReceivePromise::defer(ioService_))
         , sendPromise_(ITransport::SendPromise::defer(ioService_))
-        , tcpEndpoint_(&tcpEndpointMock_, [](auto*) {})
-    {
+        , tcpEndpoint_(&tcpEndpointMock_, [](auto*) {})) ;    {
         receivePromise_->then(std::bind(&TransportReceivePromiseHandlerMock::onResolve, &receivePromiseHandlerMock_, std::placeholders::_1),
                               std::bind(&TransportReceivePromiseHandlerMock::onReject, &receivePromiseHandlerMock_, std::placeholders::_1));
 

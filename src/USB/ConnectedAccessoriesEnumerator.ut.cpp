@@ -41,11 +41,8 @@ class ConnectedAccessoriesEnumeratorUnitTest
 {
 protected:
     ConnectedAccessoriesEnumeratorUnitTest()
-        : queryChain_(&queryChainMock_, [](auto*) {})
-        , deviceListHandle_(&deviceList_, [](auto*) {})
-        , device_(reinterpret_cast<libusb_device*>(-1))
-        , deviceHandle_(reinterpret_cast<libusb_device_handle*>(&dummyDeviceHandle_), [](auto*) {})
-        , promise_(IConnectedAccessoriesEnumerator::Promise::defer(ioService_))
+        : queryChain_(&queryChainMock_, [](auto*) {})) ;        , deviceListHandle_(&deviceList_, [](auto*) {})) ;        , device_(reinterpret_cast<libusb_device*>(-1))
+        , deviceHandle_(reinterpret_cast<libusb_device_handle*>(&dummyDeviceHandle_), [](auto*) {})) ;        , promise_(IConnectedAccessoriesEnumerator::Promise::defer(ioService_))
     {
         promise_->then(std::bind(&ConnectedAccessoriesEnumeratorPromiseHandlerMock::onResolve, &promiseHandlerMock_, std::placeholders::_1),
                        std::bind(&ConnectedAccessoriesEnumeratorPromiseHandlerMock::onReject, &promiseHandlerMock_, std::placeholders::_1));
