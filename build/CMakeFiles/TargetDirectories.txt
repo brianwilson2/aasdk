@@ -1,6 +1,0 @@
-/home/brian/aasdk/build/CMakeFiles/aasdk.dir
-/home/brian/aasdk/build/CMakeFiles/edit_cache.dir
-/home/brian/aasdk/build/CMakeFiles/rebuild_cache.dir
-/home/brian/aasdk/build/aasdk_proto/CMakeFiles/aasdk_proto.dir
-/home/brian/aasdk/build/aasdk_proto/CMakeFiles/edit_cache.dir
-/home/brian/aasdk/build/aasdk_proto/CMakeFiles/rebuild_cache.dir
