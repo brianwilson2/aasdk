@@ -15,13 +15,22 @@
 *  You should have received a copy of the GNU General Public License
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
-void USBAccessoryModeStartQuery::start(Promise::Pointer promise)
+#include <f1x/aasdk/USB/AccessoryModeStartQuery.hpp>
+#include <f1x/aasdk/USB/IUSBEndpoint.hpp>
+#include <f1x/aasdk/IO/Promise.hpp>
+
+using namespace f1x::aasdk;
+using namespace f1x::aasdk::usb;
+using namespace f1x::aasdk::io;
+
+void AccessoryModeStartQuery::start(Promise::Pointer promise)
 {
     boost::asio::dispatch(
         boost::asio::bind_executor(
             strand_,
-            [this, self = this->shared_from_this(), promise = std::move(promise)]() mutable {
-                if (promise_ != nullptr)
+            [this, self = this->shared_from_this(), promise = std::move(promise)]() mutable
+            {
+                if (promise_)
                 {
                     promise->reject(error::Error(error::ErrorCode::OPERATION_IN_PROGRESS));
                     return;
@@ -29,24 +38,20 @@ void USBAccessoryModeStartQuery::start(Promise::Pointer promise)
 
                 promise_ = std::move(promise);
 
-                // Create a separate promise for the IUSBEndpoint pointer
                 auto usbEndpointPromise = IUSBEndpoint::Promise::defer(strand_);
                 usbEndpointPromise->then(
-                    [this, self = this->shared_from_this()](IUSBEndpoint::Pointer /*endpoint*/) mutable {
-                        // Resolve the outer promise with a simple success indicator (1)
-                        promise_->resolve(1);
+                    [this, self](unsigned int) mutable {
+                        promise_->resolve(usbEndpoint_);
                         promise_.reset();
                     },
-                    [this, self = this->shared_from_this()](const error::Error& e) mutable {
+                    [this, self](const error::Error& e) mutable {
                         promise_->reject(e);
                         promise_.reset();
                     }
                 );
 
-                // Start the control transfer using the USB endpoint
                 usbEndpoint_->controlTransfer(common::DataBuffer(data_), cTransferTimeoutMs, std::move(usbEndpointPromise));
             }
         )
     );
 }
-

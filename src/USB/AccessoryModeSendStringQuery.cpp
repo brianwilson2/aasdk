@@ -15,7 +15,6 @@
 *  You should have received a copy of the GNU General Public License
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
-
 #include <iomanip>
 #include <f1x/aasdk/USB/AccessoryModeSendStringQuery.hpp>
 #include <f1x/aasdk/USB/USBEndpoint.hpp>
@@ -27,16 +26,27 @@ namespace aasdk
 namespace usb
 {
 
-AccessoryModeSendStringQuery::AccessoryModeSendStringQuery(boost::asio::io_context& ioService, IUSBWrapper& usbWrapper, IUSBEndpoint::Pointer usbEndpoint,
-                                                           AccessoryModeSendStringType sendStringType, const std::string& queryValue)
+AccessoryModeSendStringQuery::AccessoryModeSendStringQuery(
+    boost::asio::io_context& ioService,
+    IUSBWrapper& usbWrapper,
+    IUSBEndpoint::Pointer usbEndpoint,
+    AccessoryModeSendStringType sendStringType,
+    const std::string& queryValue)
     : AccessoryModeQuery(ioService, std::move(usbEndpoint))
-    , sendStringType_(std::move(sendStringType))
+    , sendStringType_(sendStringType)
 {
     data_.resize(8);
     data_.insert(data_.end(), queryValue.begin(), queryValue.end());
     data_.push_back('\0');
 
-    usbWrapper.fillControlSetup(&data_[0], LIBUSB_ENDPOINT_OUT | USB_TYPE_VENDOR, ACC_REQ_SEND_STRING, 0, static_cast<uint16_t>(sendStringType_), data_.size() - 8);
+    usbWrapper.fillControlSetup(
+        &data_[0],
+        LIBUSB_ENDPOINT_OUT | USB_TYPE_VENDOR,
+        ACC_REQ_SEND_STRING,
+        0,
+        static_cast<uint16_t>(sendStringType_),
+        data_.size() - 8
+    );
 }
 
 void AccessoryModeSendStringQuery::start(Promise::Pointer promise)
@@ -44,29 +54,30 @@ void AccessoryModeSendStringQuery::start(Promise::Pointer promise)
     boost::asio::dispatch(
         boost::asio::bind_executor(
             strand_,
-            [this, self = this->shared_from_this(), promise = std::move(promise)]() mutable {
-                if(promise_ != nullptr)
+            [this, self = this->shared_from_this(), promise = std::move(promise)]() mutable
+            {
+                if (promise_)
                 {
                     promise->reject(error::Error(error::ErrorCode::OPERATION_IN_PROGRESS));
+                    return;
                 }
-                else
-                {
-                    promise_ = std::move(promise);
 
-                    usbEndpoint->sendString(index,string,
-                        [this, self = this->shared_from_this(), usbEndpoint](size_t /*bytesTransferred*/) mutable {
-                        // ignore bytesTransferred; just resolve with the endpoint pointer
-                            promise_->resolve(usbEndpoint);
-                            promise_.reset();
-               },
-                        [this, self = this->shared_from_this()](const error::Error& e) mutable {
-                            promise_->reject(e);
-                            promise_.reset();
-               });
+                promise_ = std::move(promise);
 
+                auto endpoint = usbEndpoint_;
+                auto usbEndpointPromise = IUSBEndpoint::Promise::defer(strand_);
+                usbEndpointPromise->then(
+                    [this, self, endpoint](unsigned int) mutable {
+                        promise_->resolve(endpoint);
+                        promise_.reset();
+                    },
+                    [this, self](const error::Error& e) mutable {
+                        promise_->reject(e);
+                        promise_.reset();
+                    }
+                );
 
-                    usbEndpoint_->controlTransfer(common::DataBuffer(data_), cTransferTimeoutMs, std::move(usbEndpointPromise));
-                }
+                usbEndpoint_->controlTransfer(common::DataBuffer(data_), cTransferTimeoutMs, std::move(usbEndpointPromise));
             }
         )
     );

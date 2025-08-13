@@ -2,7 +2,7 @@ import os
 import shutil
 import re
 
-DRY_RUN = False
+DRY_RUN = True // this only prints stuff out.If you want to actuall run it, change this to True
 ROOT_DIR = "./src/USB"
 
 REPLACEMENTS = [

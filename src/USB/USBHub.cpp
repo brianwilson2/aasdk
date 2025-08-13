@@ -15,7 +15,6 @@
 *  You should have received a copy of the GNU General Public License
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
-
 #include <thread>
 #include <f1x/aasdk/USB/IUSBWrapper.hpp>
 #include <f1x/aasdk/USB/USBHub.hpp>
@@ -56,48 +55,18 @@ void USBHub::start(Promise::Pointer promise)
                     self_ = this->shared_from_this();
                     hotplugHandle_ = usbWrapper_.hotplugRegisterCallback(
                         LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED,
-                        static_cast<libusb_hotplug_flag>(LIBUSB_HOTPLUG_NO_FLAGS),  // <-- comma added
+                        static_cast<libusb_hotplug_flag>(LIBUSB_HOTPLUG_NO_FLAGS),
                         LIBUSB_HOTPLUG_MATCH_ANY,
                         LIBUSB_HOTPLUG_MATCH_ANY,
                         LIBUSB_HOTPLUG_MATCH_ANY,
                         reinterpret_cast<libusb_hotplug_callback_fn>(&USBHub::hotplugEventsHandler),
-                        this,
-                        LIBUSB_HOTPLUG_MATCH_ANY   // dev_class argument added
-                 );
-
+                        this
+                    );
                 }
             }
         )
     );
 }
-
-
-
-void USBHub::cancel()
-{
-    boost::asio::dispatch(
-        boost::asio::bind_executor(
-            strand_,
-            [this, self = this->shared_from_this()]() mutable {
-                if(hotplugPromise_ != nullptr)
-                {
-                    hotplugPromise_->reject(error::Error(error::ErrorCode::OPERATION_ABORTED));
-                    hotplugPromise_.reset();
-                }
-
-                std::for_each(queryChainQueue_.begin(), queryChainQueue_.end(),
-                              std::bind(&IAccessoryModeQueryChain::cancel, std::placeholders::_1));
-
-                if(self_ != nullptr)
-                {
-                    hotplugHandle_.reset();
-                    self_.reset();
-                }
-            }
-        )
-    );
-}
-
 
 int USBHub::hotplugEventsHandler(libusb_context* usbContext, libusb_device* device, libusb_hotplug_event event, void* userData)
 {
@@ -167,7 +136,6 @@ void USBHub::handleDevice(libusb_device* device)
         queryChainQueue_.back()->start(std::move(handle), std::move(queryChainPromise));
     }
 }
-
 
 }
 }
